@@ -1,0 +1,6 @@
+Modules might need from Kivy
+from kivy.uix.scrollview import ScrollView
+# To scroll down text
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
+
+Change windows
