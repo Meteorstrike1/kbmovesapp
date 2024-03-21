@@ -11,7 +11,7 @@ class Moves(db.Model):
     related_moves = db.Column(db.String(50))
     module_combo = db.Column(db.String(50))
     is_defence = db.Column(db.String(10))
-    is_kick = db.Column(db.Boolean, default=False)
-    is_jump = db.Column(db.Boolean, default=False)
+    is_kick = db.Column(db.Boolean, server_default="0")
+    is_jump = db.Column(db.Boolean, server_default="0")
     notes = db.Column(db.String(200))
 
