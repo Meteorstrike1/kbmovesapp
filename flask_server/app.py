@@ -1,6 +1,8 @@
 from flask import Flask
 from extensions import db
 from config import DevConfig, TestConfig
+from views.moves import moves_ns
+from flask_restx import Api
 
 
 def create_app(test_config=None):
@@ -12,6 +14,13 @@ def create_app(test_config=None):
         app.config.from_object(TestConfig)
 
     db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+
+    api = Api(app)
+
+    api.add_namespace(moves_ns)
 
     return app
 
