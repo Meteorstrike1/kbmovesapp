@@ -14,6 +14,15 @@ class HomeWindow(Screen):
 
 
 class StartWindow(Screen):
+    code = ObjectProperty(None)
+    move_name = ObjectProperty(None)
+    belt_colour = ObjectProperty(None)
+    related_moves = ObjectProperty(None)
+    in_module = ObjectProperty(None)
+    defence = ObjectProperty(None)
+    kick = ObjectProperty(None)
+    jump = ObjectProperty(None)
+    notes = ObjectProperty(None)
     def get_move(self):
         # data = '{"id": "1"}'
         id = 1
@@ -28,6 +37,22 @@ class StartWindow(Screen):
 
     def got_json(self, req, result):
         print(result)
+        id = result["id"]
+        name = result["name"].capitalize()
+        code = result["code"]
+        belt = result["belt_colour"].capitalize()
+        module = result["module_combo"]
+        related = result["related_moves"]
+        self.move_name.text = f"Name: {name}"
+        self.code.text = f"Move ID: {code}"
+        self.belt_colour.text = f"Belt: {belt}"
+        if module is not None:
+            if id < 88:
+                self.in_module.text = f"Module 1 combinations : {module}"
+            else:
+                self.in_module.text = f"Module 2 combinations : {module}"
+        if related is not None:
+            self.related_moves.text = f"Related moves: {related}"
         # for key, value in req.resp_headers.items():
         #     print('{}: {}'.format(key, value))
         # json = dict(request["data"])

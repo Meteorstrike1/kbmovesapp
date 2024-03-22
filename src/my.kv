@@ -24,13 +24,51 @@
 
 <StartWindow>:
     name: 'startpage'
+
+    code: code
+    move_name: move_name
+    belt_colour: belt_colour
+    related_moves: related_moves
+    in_module: in_module
+
     FloatLayout:
         Label:
-            text: 'Start page!'
+            text: 'Get a move'
             font_size: 30
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
+
+        Label:
+            id: move_name
+            pos_hint: {"x":0.32, "top":0.85}
+            size_hint: 0.25, 0.1
+            text: "Name: "
+
+        Label:
+            id: code
+            pos_hint: {"x":0.32, "top":0.75}
+            size_hint: 0.25, 0.1
+            text: "Code: "
+
+        Label:
+            id: belt_colour
+            pos_hint: {"x":0.32, "top":0.65}
+            size_hint: 0.25, 0.1
+            text: "Belt: "
+
+        Label:
+            id: related_moves
+            pos_hint: {"x":0.32, "top":0.55}
+            size_hint: 0.25, 0.1
+            text: "(related would be here)"
+
+        Label:
+            id:in_module
+            pos_hint: {"x":0.32, "top":0.45}
+            size_hint: 0.25, 0.1
+            text: "(module would be here)"
+
         Button:
             text: 'Get move'
             size_hint: 0.3, 0.2
