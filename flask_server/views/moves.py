@@ -1,5 +1,6 @@
 from models import Moves
 from flask_restx import Resource, fields, Namespace
+from flask import abort
 
 
 moves_ns = Namespace("moves", description="Namespace for individual moves")
@@ -196,5 +197,38 @@ class MovesWithJumpKick(Resource):
         return moves
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+@moves_ns.route("/related_moves/<int:id>")
+class RelatedMovesById(Resource):
+
+    @moves_ns.marshal_list_with(moves_dto)
+    def get(self, id):
+        """Get list of related moves"""
+        related_moves = Moves.query.filter(Moves.id == id).first().related_moves
+
+        if related_moves is None:
+            return abort(404, "No related moves")
+
+        no_whitespace = related_moves.replace(" ", "")
+        list_moves = no_whitespace.split(",")
+        moves = Moves.query.filter(Moves.code.in_(list_moves)).order_by(Moves.id).all()
+
+        return moves
+
+
+@moves_ns.route("/related_moves/<string:code>")
+class RelatedMovesByCode(Resource):
+
+    @moves_ns.marshal_list_with(moves_dto)
+    def get(self, code):
+        """Get list of related moves"""
+        related_moves = Moves.query.filter(Moves.code == code).first().related_moves
+
+        if related_moves is None:
+            return abort(404, "No related moves")
+
+        no_whitespace = related_moves.replace(" ", "")
+        list_moves = no_whitespace.split(",")
+        moves = Moves.query.filter(Moves.code.in_(list_moves)).order_by(Moves.id).all()
+
+        return moves
+
