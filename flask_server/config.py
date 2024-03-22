@@ -21,7 +21,7 @@ class DevConfig(Config):
 
 class TestConfig(Config):
     """Testing config"""
-    SQLALCHEMY_DATABASE_URI = sqlite_uri
+    SQLALCHEMY_DATABASE_URI = sqlite_test
     SQLALCHEMY_ECHO = False
     TESTING = True
 
