@@ -11,8 +11,10 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 
+# Make a drop down menu but use normal search for now
 
-class MoveSearch(Screen):
+
+class BeltColour(Screen):
     code = ObjectProperty(None)
     move_name = ObjectProperty(None)
     belt_colour = ObjectProperty(None)
@@ -26,20 +28,14 @@ class MoveSearch(Screen):
     toggle = ObjectProperty(None)
     search = ObjectProperty(None)
 
-    def call_search_type(self):
-        if self.toggle.text == "By name":
-            self.search_by_name()
-        if self.toggle.text == "By id":
-            self.search_by_id()
-
-    def search_by_name(self):
-        """Search by move name"""
+    def search_by_belt(self):
+        """Search by belt"""
         if self.user_search.text == "":
             return
         print(self.user_search.text)
         user_input = self.user_search.text
-        name = user_input.replace(" ", "%20")
-        req = UrlRequest(f"http://127.0.0.1:5000/moves/name/{name}", on_success=self.got_list_json,
+        colour = user_input.replace(" ", "%20")
+        req = UrlRequest(f"http://127.0.0.1:5000/moves/belt/{colour}", on_success=self.got_list_json,
                          on_error=no_results, on_failure=no_results)
         self.clear_result()
 
@@ -129,17 +125,3 @@ def invalid_search(error):
     pop = Popup(title="Invalid input", content=Label(text="Please search for a number"), size_hint=(None, None),
                 size=(300, 200))
     pop.open()
-
-
-# class SearchButton(Button):
-#     user_search = ObjectProperty(None)
-#
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.on_release = MoveSearch.search_by_name(self)
-
-
-# class SearchButton(Button):
-#     def __init__(self, **kwargs):
-#         self.on_release = MoveSearch.search_by_name(self)
-#         return super(SearchButton, self).__init__(**kwargs)
