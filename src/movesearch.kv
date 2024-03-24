@@ -9,6 +9,7 @@
     related_moves: related_moves
     in_module: in_module
     user_search: user_search
+    toggle: toggle
 
     FloatLayout:
         Label:
@@ -49,11 +50,12 @@
             text: "Module: "
 
         Button:
-            text: 'Get move'
+            id: toggle
+            text: 'By id'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.35, "y":0.1}
-            on_release: root.get_move()
+            on_release: root.update_label()
 
         Button:
             text: 'Back'
@@ -79,8 +81,9 @@
             pos_hint: {"x":0.35, "y":0.3}
 
         Button:
+            id: search
             text: 'Search'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.35, "y":0.2}
-            on_release: root.search_by_name()
+            on_release: root.call_search_type()

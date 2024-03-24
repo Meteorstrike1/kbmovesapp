@@ -9,6 +9,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
+from kivy.uix.button import Button
 
 
 class MoveSearch(Screen):
@@ -22,14 +23,24 @@ class MoveSearch(Screen):
     jump = ObjectProperty(None)
     notes = ObjectProperty(None)
     user_search = ObjectProperty(None)
-    def get_move(self):
-        # data = '{"id": "1"}'
-        id = 3
-        req = UrlRequest(f"http://127.0.0.1:5000/moves/id/{id}", on_success=self.got_json)
-        # request = UrlRequest(f"http://127.0.0.1:5000/moves/id/{id}", on_success=self.got_json)
-        # result = UrlRequest(f"localhost:5000/moves/id/{id}", req_body=data, on_success=self.got_json)
-        print("it works?")
-        # return req
+    toggle = ObjectProperty(None)
+    search = ObjectProperty(None)
+
+    # def get_move(self):
+    #     # data = '{"id": "1"}'
+    #     id = 3
+    #     req = UrlRequest(f"http://127.0.0.1:5000/moves/id/{id}", on_success=self.got_json)
+    #     # request = UrlRequest(f"http://127.0.0.1:5000/moves/id/{id}", on_success=self.got_json)
+    #     # result = UrlRequest(f"localhost:5000/moves/id/{id}", req_body=data, on_success=self.got_json)
+    #     print("it works?")
+    #     # return req
+
+    def call_search_type(self):
+        if self.toggle.text == "By name":
+            self.search_by_name()
+        if self.toggle.text == "By id":
+            self.search_by_id()
+
 
     def search_by_name(self):
         """Not searching DB for some reason"""
@@ -38,8 +49,8 @@ class MoveSearch(Screen):
         print(self.user_search.text)
         user_input = self.user_search.text
         name = user_input.replace(" ", "%20")
-        req = UrlRequest(f"http://127.0.0.1:5000/moves/name/{name}", on_success=self.got_json_1,
-                         on_error=self.invalid_search, on_failure=self.invalid_search)
+        req = UrlRequest(f"http://127.0.0.1:5000/moves/name/{name}", on_success=self.got_list_json,
+                         on_error=self.no_results, on_failure=self.no_results)
         self.clear_result()
 
     def search_by_id(self):
@@ -49,17 +60,21 @@ class MoveSearch(Screen):
             try:
                 id = int(self.user_search.text)
             except ValueError:
+                self.invalid_search(ValueError)
                 return "invalid number"
         print(self.user_search.text)
-        req = UrlRequest(f"http://127.0.0.1:5000/moves/id/{id}", on_success=self.got_json)
+        req = UrlRequest(f"http://127.0.0.1:5000/moves/id/{id}", on_success=self.got_move_json,
+                         on_error=self.no_results, on_failure=self.no_results)
         self.clear_result()
 
-
-
     def update_label(self):
-        print("It works?")
+        if self.toggle.text == "By name":
+            self.toggle.text = "By id"
+        elif self.toggle.text == "By id":
+            self.toggle.text = "By name"
 
-    def got_json(self, req, result):
+
+    def got_move_json(self, req, result):
         print(result)
         id = result["id"]
         name = result["name"].capitalize()
@@ -77,13 +92,9 @@ class MoveSearch(Screen):
                 self.in_module.text = f"Module 2 combinations : {module}"
         if related is not None:
             self.related_moves.text = f"Related moves: {related}"
-        # for key, value in req.resp_headers.items():
-        #     print('{}: {}'.format(key, value))
-        # json = dict(request["data"])
-        # print(json)
         print("it worked?")
 
-    def got_json_1(self, req, result):
+    def got_list_json(self, req, result):
         """Temporary method for getting first from list"""
         print(result)
         if len(result) == 0:
@@ -108,10 +119,6 @@ class MoveSearch(Screen):
             self.related_moves.text = f"Related moves: {related}"
         else:
             self.related_moves.text = ""
-        # for key, value in req.resp_headers.items():
-        #     print('{}: {}'.format(key, value))
-        # json = dict(request["data"])
-        # print(json)
         print("it worked?")
 
     def clear_result(self):
@@ -121,7 +128,27 @@ class MoveSearch(Screen):
         self.in_module.text = "Module: "
         self.related_moves.text = "Related: "
 
-    def invalid_search(self, req, error):
+    def no_results(self, req, error):
         print(error)
         pop = Popup(title="Not found", content=Label(text="No results found"), size_hint=(None, None), size=(300, 200))
         pop.open()
+
+    def invalid_search(self, error):
+        print(error)
+        pop = Popup(title="Invalid input", content=Label(text="Please search for a number"), size_hint=(None, None),
+                    size=(300, 200))
+        pop.open()
+
+
+# class SearchButton(Button):
+#     user_search = ObjectProperty(None)
+#
+#     def __init__(self, **kwargs):
+#         super().__init__(**kwargs)
+#         self.on_release = MoveSearch.search_by_name(self)
+
+
+# class SearchButton(Button):
+#     def __init__(self, **kwargs):
+#         self.on_release = MoveSearch.search_by_name(self)
+#         return super(SearchButton, self).__init__(**kwargs)
