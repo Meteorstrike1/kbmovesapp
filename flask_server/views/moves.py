@@ -64,6 +64,8 @@ class MovesByName(Resource):
     def get(self, name):
         """Get moves by name"""
         moves = Moves.query.filter(Moves.name.ilike(f"%{name}%")).all()
+        if len(moves) == 0:
+            return abort(404, "No moves found")
         return moves
 
 

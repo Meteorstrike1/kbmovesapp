@@ -27,7 +27,7 @@ class WindowManager(ScreenManager):
     FadeTransition()
 
 
-kv = Builder.load_file("my.kv")
+kv = Builder.load_file("main.kv")
 
 sm = WindowManager()
 
