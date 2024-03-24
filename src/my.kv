@@ -25,11 +25,70 @@
 <StartWindow>:
     name: 'startpage'
 
+    FloatLayout:
+        Label:
+            text: 'Start'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        Button:
+            text: 'Reference'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'reference'
+            pos_hint: {"x":0.35, "y":0.5}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'home'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
+
+<RefWindow>:
+    name: 'reference'
+
+    FloatLayout:
+        Label:
+            text: 'Reference'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        Button:
+            text: 'Get a move'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movesearch'
+            pos_hint: {"x":0.35, "y":0.5}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
+
+<MoveSearch>:
+    name: 'movesearch'
+
     code: code
     move_name: move_name
     belt_colour: belt_colour
     related_moves: related_moves
     in_module: in_module
+    user_search: user_search
 
     FloatLayout:
         Label:
@@ -47,32 +106,63 @@
 
         Label:
             id: code
-            pos_hint: {"x":0.32, "top":0.75}
+            pos_hint: {"x":0.32, "top":0.8}
             size_hint: 0.25, 0.1
             text: "Code: "
 
         Label:
             id: belt_colour
-            pos_hint: {"x":0.32, "top":0.65}
+            pos_hint: {"x":0.32, "top":0.75}
             size_hint: 0.25, 0.1
             text: "Belt: "
 
         Label:
             id: related_moves
-            pos_hint: {"x":0.32, "top":0.55}
+            pos_hint: {"x":0.32, "top":0.7}
             size_hint: 0.25, 0.1
-            text: "(related would be here)"
+            text: "Related: "
 
         Label:
             id:in_module
-            pos_hint: {"x":0.32, "top":0.45}
+            pos_hint: {"x":0.32, "top":0.65}
             size_hint: 0.25, 0.1
-            text: "(module would be here)"
+            text: "Module: "
 
         Button:
             text: 'Get move'
-            size_hint: 0.3, 0.2
+            size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.35, "y":0.1}
             on_release: root.get_move()
+
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'reference'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: 'Reset'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.6, "y":0.1}
+            on_release: root.clear_result()
+
+        TextInput:
+            id: user_search
+            font_size: (root.width**2 + root.height**2) / 14**4
+            multiline: False
+            size_hint: 0.4, 0.15
+            pos_hint: {"x":0.35, "y":0.3}
+
+        Button:
+            text: 'Search'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.35, "y":0.2}
+            on_release: root.search_by_name()
+
 
