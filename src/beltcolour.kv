@@ -1,2 +1,56 @@
 #: include main.kv
 
+<BeltColour>:
+    name: 'beltcolour'
+    user_search: user_search
+    scroll_list: scroll_list
+
+    FloatLayout:
+        Label:
+            text: 'Moves by belt'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'reference'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: 'Reset'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.6, "y":0.1}
+            on_release: root.clear_result()
+
+        TextInput:
+            id: user_search
+            font_size: (root.width**2 + root.height**2) / 14**4
+            multiline: False
+            size_hint: 0.4, 0.15
+            pos_hint: {"x":0.35, "y":0.3}
+
+        Button:
+            id: search
+            text: 'Search by belt'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.35, "y":0.2}
+            on_release: root.search_by_belt()
+
+
+<ScrollableView>
+    scroll_list: scroll_list
+
+    Label:
+        id: scroll_list
+        pos_hint: {"x":0.32, "top":0.85}
+        size_hint: 0.25, 0.1
+        text: "Result: "
+        font_size: 20
