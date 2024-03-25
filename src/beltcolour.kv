@@ -1,7 +1,7 @@
 #: include main.kv
 
-<MoveSearch>:
-    name: 'movesearch'
+<BeltColour>:
+    name: 'beltcolour'
 
     code: code
     move_name: move_name
@@ -10,11 +10,10 @@
     related_moves: related_moves
     in_module: in_module
     user_search: user_search
-    toggle: toggle
 
     FloatLayout:
         Label:
-            text: 'Get a move'
+            text: 'Moves by belt'
             font_size: 30
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.32, "top":0.95}
@@ -57,14 +56,6 @@
             text: "Module: "
 
         Button:
-            id: toggle
-            text: 'By id'
-            size_hint: 0.2, 0.1
-            font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.35, "y":0.1}
-            on_release: root.update_label()
-
-        Button:
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
@@ -72,6 +63,20 @@
             pos_hint: {"x":0.1, "y":0.1}
             on_release:
                 root.manager.transition.direction = "right"
+
+        TextInput:
+            id: user_search
+            font_size: (root.width**2 + root.height**2) / 14**4
+            multiline: False
+            size_hint: 0.4, 0.15
+            pos_hint: {"x":0.35, "y":0.3}
+
+        Button:
+            text: 'Search by belt'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.35, "y":0.2}
+            on_release: root.search_by_belt()
 
         Button:
             text: 'Next'
@@ -87,17 +92,12 @@
             pos_hint: {"x":0.6, "y":0.1}
             on_release: root.decrease_count()
 
-        TextInput:
-            id: user_search
-            font_size: (root.width**2 + root.height**2) / 14**4
-            multiline: False
-            size_hint: 0.4, 0.15
-            pos_hint: {"x":0.35, "y":0.3}
 
-        Button:
-            id: search
-            text: 'Search'
-            size_hint: 0.2, 0.1
-            font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.35, "y":0.2}
-            on_release: root.call_search_type()
+<ScrollableView>
+    scroll_list: scroll_list
+
+    Label:
+        id: scroll_list
+        text: root.text
+        pos_hint: {"x":0.32, "top":0.85}
+        font_size: 20
