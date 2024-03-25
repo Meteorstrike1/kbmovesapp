@@ -6,6 +6,7 @@
     code: code
     move_name: move_name
     belt_colour: belt_colour
+    lesson_plan: lesson_plan
     related_moves: related_moves
     in_module: in_module
     user_search: user_search
@@ -38,14 +39,20 @@
             text: "Belt: "
 
         Label:
-            id: related_moves
+            id: lesson_plan
             pos_hint: {"x":0.32, "top":0.7}
+            size_hint: 0.25, 0.1
+            text: "Lesson plan: "
+
+        Label:
+            id: related_moves
+            pos_hint: {"x":0.32, "top":0.65}
             size_hint: 0.25, 0.1
             text: "Related: "
 
         Label:
             id: in_module
-            pos_hint: {"x":0.32, "top":0.65}
+            pos_hint: {"x":0.32, "top":0.6}
             size_hint: 0.25, 0.1
             text: "Module: "
 
@@ -67,11 +74,18 @@
                 root.manager.transition.direction = "right"
 
         Button:
-            text: 'Reset'
+            text: 'Next'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.6, "y":0.2}
+            on_release: root.increase_count()
+
+        Button:
+            text: 'Previous'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.6, "y":0.1}
-            on_release: root.clear_result()
+            on_release: root.decrease_count()
 
         TextInput:
             id: user_search

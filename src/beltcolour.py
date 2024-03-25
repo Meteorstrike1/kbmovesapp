@@ -20,6 +20,7 @@ class BeltColour(Screen):
     code = ObjectProperty(None)
     move_name = ObjectProperty(None)
     belt_colour = ObjectProperty(None)
+    lesson_plan = ObjectProperty(None)
     related_moves = ObjectProperty(None)
     in_module = ObjectProperty(None)
     defence = ObjectProperty(None)
@@ -27,8 +28,7 @@ class BeltColour(Screen):
     jump = ObjectProperty(None)
     notes = ObjectProperty(None)
     user_search = ObjectProperty(None)
-    search = ObjectProperty(None)
-    scroll_list = ObjectProperty(None)
+    # scroll_list = ObjectProperty(None)
 
     def search_by_belt(self):
         """Search by belt"""
@@ -56,7 +56,7 @@ class BeltColour(Screen):
         #     print(name)
         #     move_list.append(name)
         string = ", ".join(move_list)
-        self.scroll_list.text = string
+        ScrollableView.update_text(ScrollableView(), string)
         # return move_list
 
 
@@ -116,6 +116,44 @@ class BeltColour(Screen):
     #     self.related_moves.text = "Related: "
 
 
+
+class ScrollableView(ScrollView):
+    # user_search = ObjectProperty(None)
+    scroll_list = ObjectProperty(None)
+    text = StringProperty('')
+    # def search_by_belt(self):
+    #     """Search by belt"""
+    #     if BeltColour.user_search.text == "":
+    #         return
+    #     print(BeltColour.user_search.text)
+    #     user_input = BeltColour.user_search.text
+    #     colour = user_input.replace(" ", "%20")
+    #     req = UrlRequest(f"http://127.0.0.1:5000/moves/belt/{colour}", on_success=self.get_list_by_belt,
+    #                      on_error=no_results, on_failure=no_results)
+
+    # def get_list_by_belt(self, req, result):
+    #     if len(result) == 0:
+    #         return "no results"
+    #     move_list = []
+    #     print(result)
+    #     for i in range(len(result)):
+    #         name = result[i]["name"]
+    #         move_list.append(name)
+    #         print(move_list)
+    #     # for i in result:
+    #     #     name = result["name"]
+    #     #     print(name)
+    #     #     move_list.append(name)
+    #     string = ", ".join(move_list)
+    #     self.scroll_list.text = string
+
+    def update_text(self, string):
+        self.scroll_list.text = string
+        print(string)
+
+
+
+
 def no_results(req, error):
     print(error)
     pop = Popup(title="Not found", content=Label(text="No results found"), size_hint=(None, None), size=(300, 200))
@@ -127,6 +165,3 @@ def invalid_search(error):
     pop = Popup(title="Invalid input", content=Label(text="Please search for a number"), size_hint=(None, None),
                 size=(300, 200))
     pop.open()
-
-class ScrollableView(ScrollView):
-    text = StringProperty('')

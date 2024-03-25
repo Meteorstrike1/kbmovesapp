@@ -8,7 +8,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
 from movesearch import MoveSearch
-from beltcolour import BeltColour
+# from beltcolour import BeltColour, ScrollableView
 
 
 class HomeWindow(Screen):
@@ -36,14 +36,21 @@ kv = Builder.load_file("main.kv")
 sm = WindowManager()
 
 screens = [HomeWindow(name="home"), StartWindow(name="startpage"), RefWindow(name="reference"),
-           MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), PracticeWindow(name="practice")]
+           MoveSearch(name="movesearch"), PracticeWindow(name="practice")]
 for screen in screens:
     sm.add_widget(screen)
 
 sm.current = "home"
 
+# screens = [HomeWindow(name="home"), StartWindow(name="startpage"), RefWindow(name="reference"),
+#            MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), PracticeWindow(name="practice")]
+
 
 class MyMainApp(App):  # Inherits from App class
+    # def __init__(self, default_config=None, **kwargs):
+    #     super().__init__(**kwargs)
+    #     self.scrollable_view = ScrollableView()
+
     def build(self):
         return sm
 

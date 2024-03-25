@@ -3,7 +3,6 @@
 <BeltColour>:
     name: 'beltcolour'
     user_search: user_search
-    scroll_list: scroll_list
 
     FloatLayout:
         Label:
@@ -37,7 +36,6 @@
             pos_hint: {"x":0.35, "y":0.3}
 
         Button:
-            id: search
             text: 'Search by belt'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
@@ -50,7 +48,6 @@
 
     Label:
         id: scroll_list
+        text: root.text
         pos_hint: {"x":0.32, "top":0.85}
-        size_hint: 0.25, 0.1
-        text: "Result: "
         font_size: 20
