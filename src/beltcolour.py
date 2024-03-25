@@ -28,7 +28,11 @@ class BeltColour(Screen):
     jump = ObjectProperty(None)
     notes = ObjectProperty(None)
     user_search = ObjectProperty(None)
-    # scroll_list = ObjectProperty(None)
+
+    def __init__(self, **kw):
+        self.count = 0
+        self.results_list = []
+        super().__init__(**kw)
 
     def search_by_belt(self):
         """Search by belt"""
@@ -37,131 +41,119 @@ class BeltColour(Screen):
         print(self.user_search.text)
         user_input = self.user_search.text
         colour = user_input.replace(" ", "%20")
-        req = UrlRequest(f"http://127.0.0.1:5000/moves/belt/{colour}", on_success=self.get_list_by_belt,
+        req = UrlRequest(f"http://127.0.0.1:5000/moves/belt/{colour.lower()}", on_success=self.get_list_by_belt,
                          on_error=no_results, on_failure=no_results)
-        # self.clear_result()
-
+        self.clear_result()
+        self.count = 0
 
     def get_list_by_belt(self, req, result):
-        if len(result) == 0:
-            return "no results"
-        move_list = []
+        """Initialises variables as first item of the list"""
         print(result)
-        for i in range(len(result)):
-            name = result[i]["name"]
-            move_list.append(name)
-            print(move_list)
-        # for i in result:
-        #     name = result["name"]
-        #     print(name)
-        #     move_list.append(name)
-        string = ", ".join(move_list)
-        ScrollableView.update_text(ScrollableView(), string)
-        # return move_list
+        if len(result) == 0:
+            no_results(req, error="No results")
+            return "no results"
+        self.results_list = result
+        id = result[0]["id"]
+        name = result[0]["name"].capitalize()
+        code = result[0]["code"]
+        belt = result[0]["belt_colour"].capitalize()
+        module = result[0]["module_combo"]
+        related = result[0]["related_moves"]
+        plan = result[0]["lesson_plan"]
+        self.move_name.text = f"Name: {name}"
+        self.code.text = f"Move ID: {code}"
+        self.belt_colour.text = f"Belt: {belt}"
+        self.lesson_plan.text = f"Lesson plan: {plan}"
+        if module is not None:
+            if id < 88:
+                self.in_module.text = f"Module 1 combinations : {module.replace('M1_', '')}"
+            else:
+                self.in_module.text = f"Module 2 combinations : {module.replace('M2_', '')}"
+        else:
+            self.in_module.text = ""
+        if related is not None:
+            self.related_moves.text = f"Related moves: {related}"
+        else:
+            self.related_moves.text = ""
+        print(self.count)
+        print(self.results_list[self.count])
 
+    def increase_count(self):
+        if len(self.results_list) <= 1:
+            return
+        self.count += 1
+        if self.count > len(self.results_list) - 1:
+            self.count = 0
+        id = self.results_list[self.count]["id"]
+        name = self.results_list[self.count]["name"].capitalize()
+        code = self.results_list[self.count]["code"]
+        belt = self.results_list[self.count]["belt_colour"].capitalize()
+        plan = self.results_list[self.count]["lesson_plan"]
+        module = self.results_list[self.count]["module_combo"]
+        related = self.results_list[self.count]["related_moves"]
+        self.move_name.text = f"Name: {name}"
+        self.code.text = f"Move ID: {code}"
+        self.belt_colour.text = f"Belt: {belt}"
+        self.lesson_plan.text = f"Lesson plan: {plan}"
+        if module is not None:
+            if id < 88:
+                self.in_module.text = f"Module 1 combinations : {module.replace('M1_', '')}"
+            else:
+                self.in_module.text = f"Module 2 combinations : {module.replace('M2_', '')}"
+        else:
+            self.in_module.text = ""
+        if related is not None:
+            self.related_moves.text = f"Related moves: {related}"
+        else:
+            self.related_moves.text = ""
 
-    # def got_list_json(self, req, result):
-    #     """Temporary method for getting first from list"""
-    #     print(result)
-    #     if len(result) == 0:
-    #         return "no results"
-    #     id = result[0]["id"]
-    #     name = result[0]["name"].capitalize()
-    #     code = result[0]["code"]
-    #     belt = result[0]["belt_colour"].capitalize()
-    #     module = result[0]["module_combo"]
-    #     related = result[0]["related_moves"]
-    #     self.move_name.text = f"Name: {name}"
-    #     self.code.text = f"Move ID: {code}"
-    #     self.belt_colour.text = f"Belt: {belt}"
-    #     if module is not None:
-    #         if id < 88:
-    #             self.in_module.text = f"Module 1 combinations : {module}"
-    #         else:
-    #             self.in_module.text = f"Module 2 combinations : {module}"
-    #     else:
-    #         self.in_module.text = ""
-    #     if related is not None:
-    #         self.related_moves.text = f"Related moves: {related}"
-    #     else:
-    #         self.related_moves.text = ""
-    #     print("it worked?")
-    # def got_move_json(self, req, result):
-    #     print(result)
-    #     id = result["id"]
-    #     name = result["name"].capitalize()
-    #     code = result["code"]
-    #     belt = result["belt_colour"].capitalize()
-    #     module = result["module_combo"]
-    #     related = result["related_moves"]
-    #     self.move_name.text = f"Name: {name}"
-    #     self.code.text = f"Move ID: {code}"
-    #     self.belt_colour.text = f"Belt: {belt}"
-    #     if module is not None:
-    #         if id < 88:
-    #             self.in_module.text = f"Module 1 combinations : {module}"
-    #         else:
-    #             self.in_module.text = f"Module 2 combinations : {module}"
-    #     if related is not None:
-    #         self.related_moves.text = f"Related moves: {related}"
-    #     print("it worked?")
+        print(self.count)
+        print(self.results_list[self.count])
 
+    def decrease_count(self):
+        if len(self.results_list) <= 1:
+            return
+        self.count -= 1
+        if self.count < 1:
+            self.count = 0
+        id = self.results_list[self.count]["id"]
+        name = self.results_list[self.count]["name"].capitalize()
+        code = self.results_list[self.count]["code"]
+        belt = self.results_list[self.count]["belt_colour"].capitalize()
+        plan = self.results_list[self.count]["lesson_plan"]
+        module = self.results_list[self.count]["module_combo"]
+        related = self.results_list[self.count]["related_moves"]
+        self.move_name.text = f"Name: {name}"
+        self.code.text = f"Move ID: {code}"
+        self.belt_colour.text = f"Belt: {belt}"
+        self.lesson_plan.text = f"Lesson plan: {plan}"
+        if module is not None:
+            if id < 88:
+                self.in_module.text = f"Module 1 combinations : {module.replace('M1_', '')}"
+            else:
+                self.in_module.text = f"Module 2 combinations : {module.replace('M2_', '')}"
+        else:
+            self.in_module.text = ""
+        if related is not None:
+            self.related_moves.text = f"Related moves: {related}"
+        else:
+            self.related_moves.text = ""
 
+        print(self.count)
+        print(self.results_list[self.count])
 
-    # def clear_result(self):
-    #     self.move_name.text = "Name: "
-    #     self.code.text = "Move ID: "
-    #     self.belt_colour.text = "Belt: "
-    #     self.in_module.text = "Module: "
-    #     self.related_moves.text = "Related: "
-
-
-
-class ScrollableView(ScrollView):
-    # user_search = ObjectProperty(None)
-    scroll_list = ObjectProperty(None)
-    text = StringProperty('')
-    # def search_by_belt(self):
-    #     """Search by belt"""
-    #     if BeltColour.user_search.text == "":
-    #         return
-    #     print(BeltColour.user_search.text)
-    #     user_input = BeltColour.user_search.text
-    #     colour = user_input.replace(" ", "%20")
-    #     req = UrlRequest(f"http://127.0.0.1:5000/moves/belt/{colour}", on_success=self.get_list_by_belt,
-    #                      on_error=no_results, on_failure=no_results)
-
-    # def get_list_by_belt(self, req, result):
-    #     if len(result) == 0:
-    #         return "no results"
-    #     move_list = []
-    #     print(result)
-    #     for i in range(len(result)):
-    #         name = result[i]["name"]
-    #         move_list.append(name)
-    #         print(move_list)
-    #     # for i in result:
-    #     #     name = result["name"]
-    #     #     print(name)
-    #     #     move_list.append(name)
-    #     string = ", ".join(move_list)
-    #     self.scroll_list.text = string
-
-    def update_text(self, string):
-        self.scroll_list.text = string
-        print(string)
-
-
+    def clear_result(self):
+        self.move_name.text = "Name: "
+        self.code.text = "Move ID: "
+        self.belt_colour.text = "Belt: "
+        self.lesson_plan.text = "Lesson plan: "
+        self.in_module.text = "Module: "
+        self.related_moves.text = "Related: "
+        self.results_list = []
 
 
 def no_results(req, error):
     print(error)
-    pop = Popup(title="Not found", content=Label(text="No results found"), size_hint=(None, None), size=(300, 200))
-    pop.open()
-
-
-def invalid_search(error):
-    print(error)
-    pop = Popup(title="Invalid input", content=Label(text="Please search for a number"), size_hint=(None, None),
-                size=(300, 200))
+    pop = Popup(title="Not found", content=Label(text="Please search for exact belt colour"), size_hint=(None, None)
+                , size=(300, 200))
     pop.open()

@@ -22,7 +22,7 @@ class MoveSearch(Screen):
     defence = ObjectProperty(None)
     kick = ObjectProperty(None)
     jump = ObjectProperty(None)
-    notes = ObjectProperty(None)
+    # notes = ObjectProperty(None)  # Add this later, need to format properly
     user_search = ObjectProperty(None)
     toggle = ObjectProperty(None)
     search = ObjectProperty(None)
@@ -80,22 +80,25 @@ class MoveSearch(Screen):
         plan = result["lesson_plan"]
         module = result["module_combo"]
         related = result["related_moves"]
+        # note = result["notes"]
         self.move_name.text = f"Name: {name}"
         self.code.text = f"Move ID: {code}"
         self.belt_colour.text = f"Belt: {belt}"
         self.lesson_plan.text = f"Lesson plan: {plan}"
         if module is not None:
             if id < 88:
-                self.in_module.text = f"Module 1 combinations : {module}"
+                self.in_module.text = f"Module 1 combinations : {module.replace('M1_', '')}"
             else:
-                self.in_module.text = f"Module 2 combinations : {module}"
+                self.in_module.text = f"Module 2 combinations : {module.replace('M2_', '')}"
         if related is not None:
             self.related_moves.text = f"Related moves: {related}"
         else:
             self.related_moves.text = ""
+        # if note is not None:
+        #     self.notes.text = f"Notes: {note}"
 
     def got_list_json(self, req, result):
-        """Temporary method for getting first from list"""
+        """Initialises variables as first item of the list"""
         print(result)
         if len(result) == 0:
             return "no results"
@@ -113,9 +116,9 @@ class MoveSearch(Screen):
         self.lesson_plan.text = f"Lesson plan: {plan}"
         if module is not None:
             if id < 88:
-                self.in_module.text = f"Module 1 combinations : {module}"
+                self.in_module.text = f"Module 1 combinations : {module.replace('M1_', '')}"
             else:
-                self.in_module.text = f"Module 2 combinations : {module}"
+                self.in_module.text = f"Module 2 combinations : {module.replace('M2_', '')}"
         else:
             self.in_module.text = ""
         if related is not None:
@@ -153,9 +156,9 @@ class MoveSearch(Screen):
         self.lesson_plan.text = f"Lesson plan: {plan}"
         if module is not None:
             if id < 88:
-                self.in_module.text = f"Module 1 combinations : {module}"
+                self.in_module.text = f"Module 1 combinations : {module.replace('M1_', '')}"
             else:
-                self.in_module.text = f"Module 2 combinations : {module}"
+                self.in_module.text = f"Module 2 combinations : {module.replace('M2_', '')}"
         else:
             self.in_module.text = ""
         if related is not None:
@@ -185,9 +188,9 @@ class MoveSearch(Screen):
         self.lesson_plan.text = f"Lesson plan: {plan}"
         if module is not None:
             if id < 88:
-                self.in_module.text = f"Module 1 combinations : {module}"
+                self.in_module.text = f"Module 1 combinations : {module.replace('M1_', '')}"
             else:
-                self.in_module.text = f"Module 2 combinations : {module}"
+                self.in_module.text = f"Module 2 combinations : {module.replace('M2_', '')}"
         else:
             self.in_module.text = ""
         if related is not None:
@@ -209,17 +212,3 @@ def invalid_search(error):
     pop = Popup(title="Invalid input", content=Label(text="Please search for a number"), size_hint=(None, None),
                 size=(300, 200))
     pop.open()
-
-
-# class SearchButton(Button):
-#     user_search = ObjectProperty(None)
-#
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.on_release = MoveSearch.search_by_name(self)
-
-
-# class SearchButton(Button):
-#     def __init__(self, **kwargs):
-#         self.on_release = MoveSearch.search_by_name(self)
-#         return super(SearchButton, self).__init__(**kwargs)
