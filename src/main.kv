@@ -1,0 +1,96 @@
+#:include movesearch.kv
+#: include beltcolour.kv
+
+<HomeWindow>:
+    name: 'home'
+    FloatLayout:
+        Label:
+            text: 'Home page!'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+        Image:
+            source: 'kblogo.png'
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"x":0.25, "top":0.8}
+            size_hint: 0.5, 0.5
+        Button:
+            text: 'Start'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.35, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "left"
+
+<StartWindow>:
+    name: 'startpage'
+
+    FloatLayout:
+        Label:
+            text: 'Start'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        Button:
+            text: 'Reference'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'reference'
+            pos_hint: {"x":0.35, "y":0.5}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'home'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
+
+<RefWindow>:
+    name: 'reference'
+
+    FloatLayout:
+        Label:
+            text: 'Reference'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        Button:
+            text: 'Search a move'
+            size_hint: 0.3, 0.15
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movesearch'
+            pos_hint: {"x":0.35, "y":0.6}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Move by belt'
+            size_hint: 0.3, 0.15
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'beltcolour'
+            pos_hint: {"x":0.35, "y":0.4}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
+
+
+
