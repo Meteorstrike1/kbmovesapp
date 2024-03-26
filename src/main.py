@@ -9,6 +9,9 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
 from movesearch import MoveSearch
 from beltcolour import BeltColour
+from freeform import Freeform
+from data.freeform1 import string
+from movebuilder import MoveBuilder
 
 
 class HomeWindow(Screen):
@@ -21,6 +24,10 @@ class StartWindow(Screen):
 
 class RefWindow(Screen):
     pass
+
+
+# class Freeform(Screen):
+#     pass
 
 
 class PracticeWindow(Screen):
@@ -36,7 +43,8 @@ kv = Builder.load_file("main.kv")
 sm = WindowManager()
 
 screens = [HomeWindow(name="home"), StartWindow(name="startpage"), RefWindow(name="reference"),
-           MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), PracticeWindow(name="practice")]
+           MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), Freeform(name="freeform"),
+           PracticeWindow(name="practice"), MoveBuilder(name="movebuilder")]
 for screen in screens:
     sm.add_widget(screen)
 
