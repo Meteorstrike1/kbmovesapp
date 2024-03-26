@@ -1,0 +1,30 @@
+#: include main.kv
+
+<Freeform>
+    name: 'freeform'
+    on_enter: root.make_appear()
+
+    freeform_text: freeform_text
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        ScrollView:
+            size_hint_y: .6
+            text: 'Test'
+
+            Label:
+                id: freeform_text
+                font_size: 20
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+
+    Button:
+        text: 'Back'
+        size_hint: 0.2, 0.1
+        font_size: (root.width**2 + root.height**2) / 14**4
+        on_release: app.root.current = 'reference'
+        pos_hint: {"x":0.1, "y":0.1}
+        on_release:
+            root.manager.transition.direction = "right"

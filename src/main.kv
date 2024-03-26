@@ -1,5 +1,7 @@
-#:include movesearch.kv
+#: include movesearch.kv
 #: include beltcolour.kv
+#: include freeform.kv
+#: include movebuilder.kv
 
 <HomeWindow>:
     name: 'home'
@@ -41,7 +43,16 @@
             size_hint: 0.3, 0.2
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'reference'
-            pos_hint: {"x":0.35, "y":0.5}
+            pos_hint: {"x":0.35, "y":0.6}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Practice'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'practice'
+            pos_hint: {"x":0.35, "y":0.35}
             on_release:
                 root.manager.transition.direction = "left"
 
@@ -67,19 +78,28 @@
 
         Button:
             text: 'Search a move'
-            size_hint: 0.3, 0.15
+            size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'movesearch'
-            pos_hint: {"x":0.35, "y":0.6}
+            pos_hint: {"x":0.35, "y":0.7}
             on_release:
                 root.manager.transition.direction = "left"
 
         Button:
             text: 'Move by belt'
-            size_hint: 0.3, 0.15
+            size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'beltcolour'
-            pos_hint: {"x":0.35, "y":0.4}
+            pos_hint: {"x":0.35, "y":0.5}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Freeform 1'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"x":0.35, "y":0.3}
             on_release:
                 root.manager.transition.direction = "left"
 
@@ -92,5 +112,52 @@
             on_release:
                 root.manager.transition.direction = "right"
 
+
+<PracticeWindow>:
+    name: 'practice'
+
+    FloatLayout:
+        Label:
+            text: 'Practice'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        Button:
+            text: 'Moves'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movebuilder'
+            pos_hint: {"x":0.35, "y":0.7}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Combinations'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'beltcolour'
+            pos_hint: {"x":0.35, "y":0.5}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Blackbelt modules'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"x":0.35, "y":0.3}
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
 
 
