@@ -11,99 +11,86 @@
     related_moves: related_moves
     in_module: in_module
 
-    BoxLayout:
-        orientation: "vertical"
-        size: root.width, root.height
-
+    FloatLayout:
         Label:
-            text: 'Make a moves list'
+            text: 'Choose a belt'
+            id: user_search
             font_size: 30
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
 
-        BoxLayout:
-            size: 0.8, 0.8
+        Button:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'practice'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
 
-            Label:
-                id: user_search
-                text: "Belt choice"
-                font_size: 20
+        Button:
+            text: 'Search'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.35, "y":0.2}
+            on_release: root.search_by_belt()
 
-            Spinner:
-                id: spinner_id
-                text: "Choose belt colour"
-                pos_hint: {"x":0.8, "y":0.7}
-                size_hint: 0.4, 0.15
-                values: ["Red white", "Red", "Yellow white", "Yellow", "Orange white", "Orange", "Green white", "Green", "Blue white", "Blue", "Purple white", "Purple", "Brown white", "Brown", "Junior black", "Black"]
+        Button:
+            text: 'Next'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.6, "y":0.2}
+            on_release: root.increase_count()
 
-                on_text: root.spinner_clicked(spinner_id.text)
+        Button:
+            text: 'Previous'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.6, "y":0.1}
+            on_release: root.decrease_count()
 
-            Label:
-                text: ""
+        Label:
+            id: move_name
+            pos_hint: {"x":0.32, "top":0.85}
+            size_hint: 0.25, 0.1
+            text: "Name: "
 
-    Button:
-        text: 'Back'
-        size_hint: 0.2, 0.1
-        font_size: (root.width**2 + root.height**2) / 14**4
-        on_release: app.root.current = 'practice'
-        pos_hint: {"x":0.1, "y":0.1}
-        on_release:
-            root.manager.transition.direction = "right"
+        Label:
+            id: code
+            pos_hint: {"x":0.32, "top":0.8}
+            size_hint: 0.25, 0.1
+            text: "Move ID: "
 
-    Button:
-        text: 'Search by belt'
-        size_hint: 0.2, 0.1
-        font_size: (root.width**2 + root.height**2) / 14**4
-        pos_hint: {"x":0.35, "y":0.2}
-        on_release: root.search_by_belt()
+        Label:
+            id: belt_colour
+            pos_hint: {"x":0.32, "top":0.75}
+            size_hint: 0.25, 0.1
+            text: "Belt: "
 
-    Button:
-        text: 'Next'
-        size_hint: 0.2, 0.1
-        font_size: (root.width**2 + root.height**2) / 14**4
-        pos_hint: {"x":0.6, "y":0.2}
-        on_release: root.increase_count()
+        Label:
+            id: lesson_plan
+            pos_hint: {"x":0.32, "top":0.7}
+            size_hint: 0.25, 0.1
+            text: "Lesson plan: "
 
-    Button:
-        text: 'Previous'
-        size_hint: 0.2, 0.1
-        font_size: (root.width**2 + root.height**2) / 14**4
-        pos_hint: {"x":0.6, "y":0.1}
-        on_release: root.decrease_count()
+        Label:
+            id: related_moves
+            pos_hint: {"x":0.32, "top":0.65}
+            size_hint: 0.25, 0.1
+            text: "Related: "
 
-    Label:
-        id: move_name
-        pos_hint: {"x":0.32, "top":0.85}
-        size_hint: 0.25, 0.1
-        text: "Name: "
+        Label:
+            id: in_module
+            pos_hint: {"x":0.32, "top":0.6}
+            size_hint: 0.25, 0.1
+            text: "Module: "
 
-    Label:
-        id: code
-        pos_hint: {"x":0.32, "top":0.8}
-        size_hint: 0.25, 0.1
-        text: "Move ID: "
+        Spinner:
+            id: spinner_id
+            text: "Choose belt"
+            pos_hint: {"x":0.35, "y":0.1}
+            size_hint: 0.2, 0.1
+            values: ["Red white", "Red", "Yellow white", "Yellow", "Orange white", "Orange", "Green white", "Green", "Blue white", "Blue", "Purple white", "Purple", "Brown white", "Brown", "Junior black", "Black"]
 
-    Label:
-        id: belt_colour
-        pos_hint: {"x":0.32, "top":0.75}
-        size_hint: 0.25, 0.1
-        text: "Belt: "
-
-    Label:
-        id: lesson_plan
-        pos_hint: {"x":0.32, "top":0.7}
-        size_hint: 0.25, 0.1
-        text: "Lesson plan: "
-
-    Label:
-        id: related_moves
-        pos_hint: {"x":0.32, "top":0.65}
-        size_hint: 0.25, 0.1
-        text: "Related: "
-
-    Label:
-        id: in_module
-        pos_hint: {"x":0.32, "top":0.6}
-        size_hint: 0.25, 0.1
-        text: "Module: "
+            on_text: root.spinner_clicked(spinner_id.text)
