@@ -3,6 +3,16 @@
 #: include freeform.kv
 #: include movebuilder.kv
 
+WindowManager:
+    HomeWindow
+    StartWindow
+    RefWindow
+    PracticeWindow
+    MoveSearch
+    BeltColour
+    Freeform
+    MoveBuilder
+
 <HomeWindow>:
     name: 'home'
     FloatLayout:
@@ -18,7 +28,7 @@
             keep_ratio: True
             pos_hint: {"x":0.25, "top":0.8}
             size_hint: 0.5, 0.5
-        Button:
+        MDRaisedButton:
             text: 'Start'
             size_hint: 0.3, 0.2
             font_size: (root.width**2 + root.height**2) / 14**4
