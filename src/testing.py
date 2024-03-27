@@ -4,15 +4,23 @@ from kivy.properties import ObjectProperty
 from kivy.lang import Builder
 from kivymd.app import MDApp
 
-Builder.load_file("testing.kv")
-
-class MyLayout(Widget):
-    pass
+# Builder.load_file("testing.kv")
+#
+# class MyLayout(Widget):
+#     pass
 
 
 class AwesomeApp(MDApp):
     def build(self):
-        return MyLayout()
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "DeepPurple"
+        self.theme_cls.accent_palette = "Red"
+        return Builder.load_file("testing.kv")
+
+# `'Red'`, `'Pink'`, `'Purple'`, `'DeepPurple'`,
+#     `'Indigo'`, `'Blue'`, `'LightBlue'`, `'Cyan'`, `'Teal'`, `'Green'`,
+#     `'LightGreen'`, `'Lime'`, `'Yellow'`, `'Amber'`, `'Orange'`, `'DeepOrange'`,
+#     `'Brown'`, `'Gray'`, `'BlueGray'
 
 if __name__ == '__main__':
     AwesomeApp().run()

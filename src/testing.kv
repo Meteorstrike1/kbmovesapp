@@ -1,10 +1,15 @@
-<MyLayout>
-    BoxLayout:
-        orientation: "vertical"
-        size: root.width, root.height
+Screen:
+    MDRaisedButton:
+        text: "Light Button"
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        md_bg_color: app.theme_cls.primary_light
 
-        Screen:
-            MDCard:
-                size_hint: None, None
-                size: "280dp", "180dp"
-                pos_hint: {"center_x": .5, "center_y": .5}
+    MDRaisedButton:
+        text: "Primary Button"
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDRaisedButton:
+        text: "Dark Button"
+        pos_hint: {"center_x": 0.5, "center_y": 0.3}
+        md_bg_color: app.theme_cls.primary_dark
+

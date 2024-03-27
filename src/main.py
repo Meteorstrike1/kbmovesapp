@@ -1,4 +1,5 @@
 from kivy.app import App
+from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.network.urlrequest import UrlRequest
@@ -12,6 +13,7 @@ from beltcolour import BeltColour
 from freeform import Freeform
 from data.freeform1 import string
 from movebuilder import MoveBuilder
+
 
 
 class HomeWindow(Screen):
@@ -51,9 +53,11 @@ for screen in screens:
 sm.current = "home"
 
 
-class MyMainApp(App):
+class MyMainApp(MDApp):
 
     def build(self):
+        self.theme_cls.primary_palette = "Teal"
+        self.theme_cls.accent_palette = "Red"
         return sm
 
 
@@ -61,4 +65,3 @@ if __name__ == "__main__":
     MyMainApp().run()
 
 
-# TODO: Pop up for errors
