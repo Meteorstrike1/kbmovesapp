@@ -1,11 +1,12 @@
 from kivy.uix.screenmanager import Screen
+from kivymd.uix.screen import MDScreen
 from kivy.network.urlrequest import UrlRequest
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 
 
-class MoveResult(Screen):
+class MoveResult(MDScreen):
     """
     Displaying single and list results for the moves, inherits from Screen.
 

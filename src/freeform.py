@@ -12,11 +12,12 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from data.freeform1 import string
+from kivymd.uix.screen import MDScreen
 
 # string = "Really long string" * 100
 
 
-class Freeform(Screen):
+class Freeform(MDScreen):
     freeform_text = ObjectProperty(None)
 
     def make_appear(self):
