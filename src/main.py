@@ -16,9 +16,11 @@ from movebuilder import MoveBuilder
 from kivymd.uix.button import MDTextButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.dropdownitem import dropdownitem
+from kivymd.uix.screen import MDScreen
+from kivymd.uix.screenmanager import MDScreenManager
 
 
-class HomeWindow(Screen):
+class HomeWindow(MDScreen):
     # about = ObjectProperty(None)
     # disclaimer = ObjectProperty(None)
     # def about_screen(self):
@@ -27,19 +29,19 @@ class HomeWindow(Screen):
     pass
 
 
-class StartWindow(Screen):
+class StartWindow(MDScreen):
     pass
 
 
-class RefWindow(Screen):
+class RefWindow(MDScreen):
     pass
 
 
-class PracticeWindow(Screen):
+class PracticeWindow(MDScreen):
     pass
 
 
-class WindowManager(ScreenManager):
+class WindowManager(MDScreenManager):
     pass
 
 
@@ -56,7 +58,7 @@ kv = Builder.load_file("main.kv")
 # sm.current = "home"
 
 
-class MyMainApp(MDApp):
+class KickboxingApp(MDApp):
 
     def build(self):
         self.sm = WindowManager()
@@ -81,7 +83,7 @@ class MyMainApp(MDApp):
 
 
 if __name__ == "__main__":
-    MyMainApp().run()
+    KickboxingApp().run()
 
 
 # TODO: - About, - Disclaimer

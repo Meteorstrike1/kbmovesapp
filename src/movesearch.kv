@@ -73,14 +73,14 @@
             on_release:
                 root.manager.transition.direction = "right"
 
-        Button:
+        MDFillRoundFlatButton:
             text: 'Next'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.6, "y":0.2}
             on_release: root.increase_count()
 
-        Button:
+        MDRaisedButton:
             text: 'Previous'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
@@ -96,10 +96,11 @@
             hint_text: "Search for move"
 
 
-        Button:
+        MDRaisedButton:
             id: search
             text: 'Search'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.35, "y":0.2}
             on_release: root.call_search_type()
+            md_bg_color: app.theme_cls.primary_dark
