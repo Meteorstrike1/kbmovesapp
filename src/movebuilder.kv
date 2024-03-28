@@ -20,7 +20,7 @@
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
 
-        Button:
+        MDRectangleFlatButton:
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
@@ -29,21 +29,22 @@
             on_release:
                 root.manager.transition.direction = "right"
 
-        Button:
+        MDRaisedButton:
             text: 'Search'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.35, "y":0.2}
+            md_bg_color: app.theme_cls.primary_dark
             on_release: root.search_by_belt()
 
-        Button:
+        MDRaisedButton:
             text: 'Next'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.6, "y":0.2}
             on_release: root.increase_count()
 
-        Button:
+        MDRaisedButton:
             text: 'Previous'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4

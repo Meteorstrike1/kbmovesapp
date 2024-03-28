@@ -9,7 +9,7 @@
     BoxLayout:
         orientation: 'vertical'
 
-        ScrollView:
+        MDScrollView:
             size_hint_y: .6
             text: 'Test'
 
@@ -20,11 +20,20 @@
                 size_hint_y: None
                 height: self.texture_size[1]
 
-    Button:
-        text: 'Back'
-        size_hint: 0.2, 0.1
-        font_size: (root.width**2 + root.height**2) / 14**4
-        on_release: app.root.current = 'reference'
-        pos_hint: {"x":0.1, "y":0.1}
-        on_release:
-            root.manager.transition.direction = "right"
+
+        Label:
+            text: ""
+            size_hint: 0.02, 0.02
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'reference'
+            pos_hint: {"x":0.1, "y":0.1}
+            on_release:
+                root.manager.transition.direction = "right"
+
+        Label:
+            text: ""
+            size_hint: 0.05, 0.05
