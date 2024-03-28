@@ -64,7 +64,7 @@
             pos_hint: {"x":0.35, "y":0.1}
             on_release: root.update_label()
 
-        Button:
+        MDRectangleFlatButton:
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
@@ -87,12 +87,14 @@
             pos_hint: {"x":0.6, "y":0.1}
             on_release: root.decrease_count()
 
-        TextInput:
+        MDTextField:
             id: user_search
             font_size: (root.width**2 + root.height**2) / 14**4
             multiline: False
-            size_hint: 0.4, 0.15
+            size_hint: 0.45, 0.15
             pos_hint: {"x":0.35, "y":0.3}
+            hint_text: "Search for move"
+
 
         Button:
             id: search

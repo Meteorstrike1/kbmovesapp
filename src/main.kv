@@ -3,39 +3,43 @@
 #: include freeform.kv
 #: include movebuilder.kv
 
-WindowManager:
-    HomeWindow
-    StartWindow
-    RefWindow
-    PracticeWindow
-    MoveSearch
-    BeltColour
-    Freeform
-    MoveBuilder
-
 <HomeWindow>:
     name: 'home'
-    FloatLayout:
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
         Label:
             text: 'Home page!'
             font_size: 30
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
+
         Image:
             source: 'kblogo.png'
             allow_stretch: True
             keep_ratio: True
-            pos_hint: {"x":0.25, "top":0.8}
-            size_hint: 0.5, 0.5
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: 0.4, 0.4
+
+        Label:
+            text: ""
+            size_hint: 0.05, 0.05
+
         MDRaisedButton:
             text: 'Start'
             size_hint: 0.3, 0.2
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'startpage'
-            pos_hint: {"x":0.35, "y":0.1}
+            pos_hint: {"center_x": 0.5, "center_y": 0.2}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
+
+        Label:
+            text: ""
+            size_hint: 0.05, 0.05
 
 <StartWindow>:
     name: 'startpage'
@@ -48,25 +52,27 @@ WindowManager:
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
 
-        Button:
+        MDRaisedButton:
             text: 'Reference'
             size_hint: 0.3, 0.2
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'reference'
             pos_hint: {"x":0.35, "y":0.6}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRaisedButton:
             text: 'Practice'
             size_hint: 0.3, 0.2
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'practice'
             pos_hint: {"x":0.35, "y":0.35}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRectangleFlatButton:
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
@@ -86,34 +92,37 @@ WindowManager:
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
 
-        Button:
+        MDRaisedButton:
             text: 'Search a move'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'movesearch'
             pos_hint: {"x":0.35, "y":0.7}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRaisedButton:
             text: 'Move by belt'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'beltcolour'
             pos_hint: {"x":0.35, "y":0.5}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRaisedButton:
             text: 'Freeform 1'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'freeform'
             pos_hint: {"x":0.35, "y":0.3}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRectangleFlatButton:
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
@@ -134,34 +143,37 @@ WindowManager:
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
 
-        Button:
+        MDRaisedButton:
             text: 'Moves'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'movebuilder'
             pos_hint: {"x":0.35, "y":0.7}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRaisedButton:
             text: 'Combinations'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'beltcolour'
             pos_hint: {"x":0.35, "y":0.5}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRaisedButton:
             text: 'Blackbelt modules'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'freeform'
             pos_hint: {"x":0.35, "y":0.3}
+            md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
-        Button:
+        MDRectangleFlatButton:
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
