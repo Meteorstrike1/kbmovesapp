@@ -1,5 +1,4 @@
-from kivymd.uix.list import OneLineListItem
-from kivymd.uix.list import MDList
+from kivymd.uix.list import OneLineListItem, TwoLineListItem, MDList
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivymd.uix.dialog.dialog import MDDialog
@@ -12,10 +11,31 @@ from kivymd.uix.boxlayout import MDBoxLayout
 #     pass
 
 
-class MyOneLineListItem(OneLineListItem):
+class MyTwoLineListItem(TwoLineListItem):
     def __init__(self, details, *args, **kwargs):
         self.dialog = None
         self.details = details
+        super().__init__(*args, **kwargs)
+
+    def on_release(self):
+        self.dialog = MDDialog(title="Title", text=self.details, buttons=[MDIconButton(icon="close",
+                    on_release=self.close_dialog, pos_hint={"x": 1, "y": 2})], height=200)
+
+        self.dialog.open()
+
+        print("Something")
+
+    def close_dialog(self, instance):
+        if self.dialog:
+            self.dialog.dismiss()
+
+
+
+class MyOneLineListItem(OneLineListItem):
+    def __init__(self, details, title, *args, **kwargs):
+        self.dialog = None
+        self.details = details
+        self.title = title
         super().__init__(*args, **kwargs)
 
     # def on_release(self):
@@ -30,8 +50,11 @@ class MyOneLineListItem(OneLineListItem):
     #     print("Something")
 
     def on_release(self):
-        self.dialog = MDDialog(title="Title", text=self.details, buttons=[MDIconButton(icon="close",
-                    on_release=self.close_dialog, pos_hint={"x": 1, "y": 2})], height=200)
+        # name = self.title
+        self.dialog = MDDialog(title=self.title, text=self.details, buttons=[
+                    MDIconButton(icon="arrow-left-bold-outline", pos_hint={"x": -2, "y": 0.1}),
+                    MDIconButton(icon="arrow-right-bold-outline", pos_hint={"x": -1.8, "y": 0.1}),
+                    MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 4.5})])
 
         # self.dialog = MDDialog(title="Title", text=self.details, buttons=[MDIconButton(icon="close",
         #             on_release=self.close_dialog, pos_hint={"x": 1, "y": 2})], height=200, size_hint=[0.8, 0.8], type="custom", content_cls=DialogContent())
