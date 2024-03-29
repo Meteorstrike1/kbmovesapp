@@ -1,15 +1,15 @@
 #: include main.kv
 
+BoxLayout:
+    height: 60
+    size_hint_y: None
+    ScrollView:
+
+
+
 <BeltColour>:
     name: 'beltcolour'
-
-    code: code
-    move_name: move_name
-    belt_colour: belt_colour
-    lesson_plan: lesson_plan
-    related_moves: related_moves
-    in_module: in_module
-    user_search: user_search
+    my_list: my_list
 
     FloatLayout:
         Label:
@@ -19,41 +19,11 @@
             pos_hint: {"x":0.32, "top":0.95}
             size_hint: 0.35, 0.15
 
-        Label:
-            id: move_name
-            pos_hint: {"x":0.32, "top":0.85}
-            size_hint: 0.25, 0.1
-            text: "Name: "
+        ScrollView:
+            pos_hint: {"x": 0, "top": 0.85}
 
-        Label:
-            id: code
-            pos_hint: {"x":0.32, "top":0.8}
-            size_hint: 0.25, 0.1
-            text: "Move ID: "
-
-        Label:
-            id: belt_colour
-            pos_hint: {"x":0.32, "top":0.75}
-            size_hint: 0.25, 0.1
-            text: "Belt: "
-
-        Label:
-            id: lesson_plan
-            pos_hint: {"x":0.32, "top":0.7}
-            size_hint: 0.25, 0.1
-            text: "Lesson plan: "
-
-        Label:
-            id: related_moves
-            pos_hint: {"x":0.32, "top":0.65}
-            size_hint: 0.25, 0.1
-            text: "Related: "
-
-        Label:
-            id: in_module
-            pos_hint: {"x":0.32, "top":0.6}
-            size_hint: 0.25, 0.1
-            text: "Module: "
+            MDList:
+                id: my_list
 
         MDRectangleFlatButton:
             text: 'Back'
@@ -64,34 +34,13 @@
             on_release:
                 root.manager.transition.direction = "right"
 
-        TextInput:
-            id: user_search
-            font_size: (root.width**2 + root.height**2) / 14**4
-            multiline: False
-            size_hint: 0.4, 0.15
-            pos_hint: {"x":0.35, "y":0.3}
-
         MDRaisedButton:
             text: 'Search by belt'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"x":0.35, "y":0.2}
-            on_release: root.search_by_belt()
+            on_release: root.search_for_id()
             md_bg_color: app.theme_cls.primary_dark
-
-        MDRaisedButton:
-            text: 'Next'
-            size_hint: 0.2, 0.1
-            font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.6, "y":0.2}
-            on_release: root.increase_count()
-
-        MDRaisedButton:
-            text: 'Previous'
-            size_hint: 0.2, 0.1
-            font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.6, "y":0.1}
-            on_release: root.decrease_count()
 
 
 <ScrollableView>
