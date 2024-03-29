@@ -12,25 +12,26 @@ BoxLayout:
     my_list: my_list
 
     FloatLayout:
-        Label:
+        MDLabel:
             text: 'Moves by belt'
             font_size: 30
             font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.32, "top":0.95}
+            pos_hint: {"center_x":0.55, "center_y":0.93}
             size_hint: 0.35, 0.15
 
         ScrollView:
-            pos_hint: {"x": 0, "top": 0.85}
+            pos_hint: {"x": 0, "top": 0.9}
+            size_hint: 1, 0.72
 
             MDList:
                 id: my_list
 
         MDRectangleFlatButton:
             text: 'Back'
-            size_hint: 0.2, 0.1
+            size_hint: 0.15, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'reference'
-            pos_hint: {"x":0.1, "y":0.1}
+            pos_hint: {"x":0.05, "y":0.05}
             on_release:
                 root.manager.transition.direction = "right"
 
@@ -38,7 +39,7 @@ BoxLayout:
             text: 'Search by belt'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.35, "y":0.2}
+            pos_hint: {"x":0.35, "y":0.05}
             on_release: root.search_for_id()
             md_bg_color: app.theme_cls.primary_dark
 
