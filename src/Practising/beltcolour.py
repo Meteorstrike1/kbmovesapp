@@ -7,7 +7,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.list import MDList
-from screens.listclass import MyOneLineListItem, MyMDList
+from screens.listclass import MyOneLineListItem
 
 # Make a drop down menu but use normal search for now
 # Testing list generation for now
@@ -73,9 +73,6 @@ class BeltColour(MDScreen):
             return "no results"
         self.results_list = result
 
-        # new_md_list = MyMDList
-        # self.my_list.add_widget(new_md_list)
-
         for item in range(len(self.results_list)):
             id = result[item]["id"]
             name = result[item]["name"].capitalize()
@@ -103,8 +100,8 @@ class BeltColour(MDScreen):
             details = f"More details e.g. Lesson plan: {plan}"
             new_list = MyOneLineListItem(text=text, details=details)
             self.my_list.add_widget(new_list)
-
-
+        new_label = Label(text="")
+        self.my_list.add_widget(new_label)
 
     # def presser(self, pressed, details):
     #     pop = Popup(title="Title", content=Label(text=details))
