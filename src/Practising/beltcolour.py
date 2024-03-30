@@ -120,7 +120,7 @@ class BeltColour(MDScreen):
         # # print(custom_list)
         # text = f"Name: {name} | ID: {code} | Belt: {belt} | Lesson plan: {plan}"
         # new_list = OneLineListItem(text=text)
-        # self.my_list.add_widget(new_list)
+        # self.move_list.add_widget(new_list)
         # # new_list = OneLineListItem(text=f"Name: {name} | ID: {code} | Belt: {belt} | Lesson plan: {plan}")
         # # self.add_widget(new_list)
         # print(result)

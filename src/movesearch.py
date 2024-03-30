@@ -57,6 +57,10 @@ class MoveSearch(MoveResult):
         self.user_search.text = ""
         self.clear_result()
 
+    def clear_and_reset(self):
+        self.clear_result()
+        self.user_search.text = ""
+
 
 def invalid_search(error):
     print(error)

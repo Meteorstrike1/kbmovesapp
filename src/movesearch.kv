@@ -61,7 +61,7 @@
             text: 'By id'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"center_x":0.8, "y":0.1}
+            pos_hint: {"center_x":0.8, "y":0.05}
             md_bg_color: "green"
             on_release: root.update_label()
 
@@ -70,20 +70,21 @@
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'reference'
-            pos_hint: {"x":0.1, "y":0.1}
+            pos_hint: {"x":0.05, "y":0.05}
             on_release:
+                root.clear_and_reset()
                 root.manager.transition.direction = "right"
 
         MDIconButton:
             icon: "arrow-right-bold-outline"
             size_hint: 0.1, 0.1
-            pos_hint: {"center_x":0.58, "center_y":0.41}
+            pos_hint: {"center_x":0.58, "center_y":0.36}
             on_release: root.increase_count()
 
         MDIconButton:
             icon: "arrow-left-bold-outline"
             size_hint: 0.1, 0.1
-            pos_hint: {"center_x":0.48, "center_y":0.41}
+            pos_hint: {"center_x":0.43, "center_y":0.36}
             on_release: root.decrease_count()
 
         MDTextField:
@@ -91,7 +92,7 @@
             font_size: (root.width**2 + root.height**2) / 14**4
             multiline: False
             size_hint: 0.35, 0.15
-            pos_hint: {"x":0.33, "y":0.21}
+            pos_hint: {"x":0.33, "y":0.16}
             hint_text: "Enter move"
 
         MDRaisedButton:
@@ -99,6 +100,6 @@
             text: 'Search'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.4, "y":0.1}
+            pos_hint: {"x":0.4, "y":0.05}
             on_release: root.call_search_type()
             md_bg_color: app.theme_cls.primary_dark

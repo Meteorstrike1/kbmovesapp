@@ -6,15 +6,15 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.list import MDList
-from screens.listclass import MyOneLineListItem, MyMDList, MyTwoLineListItem
+from screens.listclass import MoveOneLineListItem
 
 
-class GeneratedList(MDList):
-    def __init__(self, text, **kwargs):
-        super().__init__(**kwargs)
-        self.text = text
-        new_list = OneLineListItem(text=text)
-        self.add_widget(new_list)
+# class GeneratedList(MDList):
+#     def __init__(self, text, **kwargs):
+#         super().__init__(**kwargs)
+#         self.text = text
+#         new_list = OneLineListItem(text=text)
+#         self.add_widget(new_list)
 
 
 class BeltColour(MDScreen):
@@ -30,7 +30,7 @@ class BeltColour(MDScreen):
     user_search = ObjectProperty(None)
     toggle = ObjectProperty(None)
     search = ObjectProperty(None)
-    my_list = ObjectProperty(None)
+    move_list = ObjectProperty(None)
     notes = ObjectProperty(None)
 
     def __init__(self, **kw):
@@ -38,27 +38,21 @@ class BeltColour(MDScreen):
         self.results_list = []
         super().__init__(**kw)
 
+    def spinner_clicked(self, value):
+        self.ids.user_search.text = value
+
     def search_by_belt(self):
-        """Search by belt"""
         if self.user_search.text == "":
             return
         print(self.user_search.text)
         user_input = self.user_search.text
         colour = user_input.replace(" ", "%20")
-        req = UrlRequest(f"http://127.0.0.1:5000/moves/belt/{colour.lower()}", on_success=self.got_list_json,
-                         on_error=no_results, on_failure=no_results)
-        self.clear_result()
-        self.count = 0
-
-    def search_for_id(self):
-        belt = "orange white"
-        colour = belt.replace(" ", "%20")
         req = UrlRequest(f"http://127.0.0.1:5000/moves/belt/{colour.lower()}", on_success=self.update_result,
                          on_error=no_results, on_failure=no_results)
 
     def update_result(self, req, result):
         """Working code"""
-        self.my_list.clear_widgets()
+        self.move_list.clear_widgets()
         if len(result) == 0:
             no_results(req, error="Not found")
             return "no results"
@@ -68,7 +62,7 @@ class BeltColour(MDScreen):
             id = result[item]["id"]
             name = result[item]["name"].capitalize()
             code = result[item]["code"]
-            belt = result[item]["belt_colour"].capitalize().replace(" ", "/")
+            belt = result[item]["belt_colour"].capitalize()
             plan = result[item]["lesson_plan"]
             module = result[item]["module_combo"]
             related = result[item]["related_moves"]
@@ -91,8 +85,14 @@ class BeltColour(MDScreen):
                 notes_text = ""
             text = f"{name}"
             details = f"Move ID: {code}\nBelt: {belt}\nLesson plan: {plan}\n{module_text}\n{related_text}\n{notes_text}"
-            new_list = MyOneLineListItem(text=text, details=details, title=name)
-            self.my_list.add_widget(new_list)
+            new_list = MoveOneLineListItem(text=text, details=details, title=name)
+            self.move_list.add_widget(new_list)
+
+    def clear_results(self):
+        self.ids.spinner_id.text = "Belt colour"
+        self.spinner_clicked("Choose a belt")
+        self.move_list.clear_widgets()
+
 
 def no_results(req, error):
     print(error)

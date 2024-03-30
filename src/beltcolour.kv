@@ -1,22 +1,19 @@
 #: include main.kv
 
-BoxLayout:
-    height: 60
-    size_hint_y: None
-    ScrollView:
-
-
-
 <BeltColour>:
     name: 'beltcolour'
-    my_list: my_list
+
+    move_list: move_list
+    spinner_id: spinner_id
+    user_search: user_search
 
     FloatLayout:
         MDLabel:
-            text: 'Moves by belt'
+            text: 'Choose a belt'
+            id: user_search
             font_size: 30
             font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"center_x":0.55, "center_y":0.93}
+            pos_hint: {"center_x":0.58, "center_y":0.93}
             size_hint: 0.35, 0.15
 
         ScrollView:
@@ -24,32 +21,31 @@ BoxLayout:
             size_hint: 1, 0.72
 
             MDList:
-                id: my_list
-
+                id: move_list
 
         MDRectangleFlatButton:
             text: 'Back'
-            size_hint: 0.15, 0.1
+            size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'reference'
             pos_hint: {"x":0.05, "y":0.05}
             on_release:
+                root.clear_results()
                 root.manager.transition.direction = "right"
 
         MDRaisedButton:
-            text: 'Search by belt'
+            text: 'Search'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            pos_hint: {"x":0.35, "y":0.05}
-            on_release: root.search_for_id()
+            pos_hint: {"x":0.4, "y":0.05}
+            on_release: root.search_by_belt()
             md_bg_color: app.theme_cls.primary_dark
 
+        Spinner:
+            id: spinner_id
+            text: "Belt colour"
+            pos_hint: {"x":0.75, "y":0.05}
+            size_hint: 0.2, 0.1
+            values: ["Red white", "Red", "Yellow white", "Yellow", "Orange white", "Orange", "Green white", "Green", "Blue white", "Blue", "Purple white", "Purple", "Brown white", "Brown", "Junior black", "Black"]
 
-<ScrollableView>
-    scroll_list: scroll_list
-
-    Label:
-        id: scroll_list
-        text: root.text
-        pos_hint: {"x":0.32, "top":0.85}
-        font_size: 20
+            on_text: root.spinner_clicked(spinner_id.text)

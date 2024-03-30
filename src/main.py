@@ -79,7 +79,6 @@ class KickboxingApp(MDApp):
         self.theme_cls.accent_palette = "Blue"
         return self.sm
 
-        # return Builder.load_file("main.kv")
 
 
 if __name__ == "__main__":
