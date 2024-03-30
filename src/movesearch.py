@@ -50,10 +50,16 @@ class MoveSearch(MoveResult):
     def update_label(self):
         if self.toggle.text == "By name":
             self.toggle.text = "By id"
+            self.toggle.md_bg_color = "green"
         elif self.toggle.text == "By id":
             self.toggle.text = "By name"
+            self.toggle.md_bg_color = 0.3, 0.3, 1, 1
         self.user_search.text = ""
         self.clear_result()
+
+    def clear_and_reset(self):
+        self.clear_result()
+        self.user_search.text = ""
 
 
 def invalid_search(error):

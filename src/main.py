@@ -18,6 +18,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.dropdownitem import dropdownitem
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.screenmanager import MDScreenManager
+from kivy.properties import ListProperty
 
 
 class HomeWindow(MDScreen):
@@ -59,10 +60,14 @@ kv = Builder.load_file("main.kv")
 
 
 class KickboxingApp(MDApp):
+    object_list = ListProperty()
+
+    def __init__(self, **kwargs):
+        # self.object_list = []
+        self.sm = WindowManager()
+        super().__init__(**kwargs)
 
     def build(self):
-        self.sm = WindowManager()
-
         self.sm.add_widget(HomeWindow(name="home"))
         self.sm.add_widget(StartWindow(name="startpage"))
         self.sm.add_widget(RefWindow(name="reference"))
@@ -79,7 +84,8 @@ class KickboxingApp(MDApp):
         self.theme_cls.accent_palette = "Blue"
         return self.sm
 
-        # return Builder.load_file("main.kv")
+    def clear_object_list(self):
+        self.object_list = []
 
 
 if __name__ == "__main__":
