@@ -5,26 +5,45 @@ from kivymd.uix.dialog.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton, MDRaisedButton, MDIconButton
 from kivymd.uix.label import MDLabel
 from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.app import MDApp
 
 
 class MoveOneLineListItem(OneLineListItem):
-    def __init__(self, details, title, *args, **kwargs):
+    count = 0
+    # object_list = MDApp.get_running_app().object_list
+    def __init__(self, details, title, position, *args, **kwargs):
         self.dialog = None
         self.details = details
         self.title = title
+        self.position = position
+        MoveOneLineListItem.count += 1
         super().__init__(*args, **kwargs)
 
     def on_release(self):
         self.dialog = MDDialog(title=self.title, text=self.details, buttons=[
-                    MDIconButton(icon="arrow-left-bold-outline", pos_hint={"x": -2, "y": 0.1}),
-                    MDIconButton(icon="arrow-right-bold-outline", pos_hint={"x": -1.8, "y": 0.1}),
-                    MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 4.5})])
+            MDIconButton(icon="arrow-left-bold-outline", pos_hint={"x": -2, "y": 0.1}, on_release=self.prev_item),
+            MDIconButton(icon="arrow-right-bold-outline", pos_hint={"x": -1.8, "y": 0.1}, on_release=self.next_item),
+            MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 4.5})])
         self.dialog.open()
+        print(MDApp.get_running_app().object_list[self.position])
         # print("Something")
 
     def close_dialog(self, instance):
         if self.dialog:
             self.dialog.dismiss()
+
+    def next_item(self, instance):
+        if self.position < len(MDApp.get_running_app().object_list) - 1:
+            self.dialog.dismiss()
+            MDApp.get_running_app().object_list[self.position + 1].on_release()
+
+    def prev_item(self, instance):
+        if self.position > 0:
+            self.dialog.dismiss()
+            MDApp.get_running_app().object_list[self.position - 1].on_release()
+
+
+
 
 
 # class MyMDList(MDList):

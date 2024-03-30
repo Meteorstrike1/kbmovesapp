@@ -7,6 +7,8 @@ from kivy.uix.label import Label
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.list import MDList
 from screens.listclass import MoveOneLineListItem
+from kivymd.app import MDApp
+from kivy.properties import ListProperty
 
 
 # class GeneratedList(MDList):
@@ -36,6 +38,7 @@ class BeltColour(MDScreen):
     def __init__(self, **kw):
         self.count = 0
         self.results_list = []
+        # self.object_list = []
         super().__init__(**kw)
 
     def spinner_clicked(self, value):
@@ -53,6 +56,7 @@ class BeltColour(MDScreen):
     def update_result(self, req, result):
         """Working code"""
         self.move_list.clear_widgets()
+        MDApp.get_running_app().clear_object_list()
         if len(result) == 0:
             no_results(req, error="Not found")
             return "no results"
@@ -85,8 +89,11 @@ class BeltColour(MDScreen):
                 notes_text = ""
             text = f"{name}"
             details = f"Move ID: {code}\nBelt: {belt}\nLesson plan: {plan}\n{module_text}\n{related_text}\n{notes_text}"
-            new_list = MoveOneLineListItem(text=text, details=details, title=name)
+            new_list = MoveOneLineListItem(text=text, details=details, title=name, position=item)
+            print(new_list.position)
             self.move_list.add_widget(new_list)
+            MDApp.get_running_app().object_list.append(new_list)
+        print(MDApp.get_running_app().object_list)
 
     def clear_results(self):
         self.ids.spinner_id.text = "Belt colour"
