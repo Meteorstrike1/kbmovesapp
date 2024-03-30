@@ -1,0 +1,18 @@
+ScrollView:
+    MDList:
+        OneLineListItem:
+            id: item1
+            text: "List item 1"
+            on_release: app.presser(self, "item1")
+
+        OneLineListItem:
+            id: item2
+            text: "List item 2"
+            on_release: app.presser(self, "item2")
+
+        ThreeLineListItem:
+            id: item3
+            text: "List item 3"
+            secondary_text: "Second Line"
+            tertiary_text: "Third Line"
+            on_release: app.presser(self, "item3")

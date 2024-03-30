@@ -1,4 +1,5 @@
 from kivy.app import App
+from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.network.urlrequest import UrlRequest
@@ -12,53 +13,83 @@ from beltcolour import BeltColour
 from freeform import Freeform
 from data.freeform1 import string
 from movebuilder import MoveBuilder
+from kivymd.uix.button import MDTextButton
+from kivymd.uix.label import MDLabel
+from kivymd.uix.dropdownitem import dropdownitem
+from kivymd.uix.screen import MDScreen
+from kivymd.uix.screenmanager import MDScreenManager
+from kivy.properties import ListProperty
 
 
-class HomeWindow(Screen):
+class HomeWindow(MDScreen):
+    # about = ObjectProperty(None)
+    # disclaimer = ObjectProperty(None)
+    # def about_screen(self):
+    #
+    #     return
     pass
 
 
-class StartWindow(Screen):
+class StartWindow(MDScreen):
     pass
 
 
-class RefWindow(Screen):
+class RefWindow(MDScreen):
     pass
 
 
-# class Freeform(Screen):
-#     pass
-
-
-class PracticeWindow(Screen):
+class PracticeWindow(MDScreen):
     pass
 
 
-class WindowManager(ScreenManager):
-    FadeTransition()
+class WindowManager(MDScreenManager):
+    pass
 
 
 kv = Builder.load_file("main.kv")
 
-sm = WindowManager()
+# sm = WindowManager()
+#
+# screens = [HomeWindow(name="home"), StartWindow(name="startpage"), RefWindow(name="reference"),
+#            MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), Freeform(name="freeform"),
+#            PracticeWindow(name="practice"), MoveBuilder(name="movebuilder")]
+# for screen in screens:
+#     sm.add_widget(screen)
+#
+# sm.current = "home"
 
-screens = [HomeWindow(name="home"), StartWindow(name="startpage"), RefWindow(name="reference"),
-           MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), Freeform(name="freeform"),
-           PracticeWindow(name="practice"), MoveBuilder(name="movebuilder")]
-for screen in screens:
-    sm.add_widget(screen)
 
-sm.current = "home"
+class KickboxingApp(MDApp):
+    object_list = ListProperty()
 
-
-class MyMainApp(App):
+    def __init__(self, **kwargs):
+        # self.object_list = []
+        self.sm = WindowManager()
+        super().__init__(**kwargs)
 
     def build(self):
-        return sm
+        self.sm.add_widget(HomeWindow(name="home"))
+        self.sm.add_widget(StartWindow(name="startpage"))
+        self.sm.add_widget(RefWindow(name="reference"))
+        self.sm.add_widget(MoveSearch(name="movesearch"))
+        self.sm.add_widget(BeltColour(name="beltcolour"))
+        self.sm.add_widget(Freeform(name="freeform"))
+        self.sm.add_widget(PracticeWindow(name="practice"))
+        self.sm.add_widget(MoveBuilder(name="movebuilder"))
+        self.sm.current = "home"
+
+        self.theme_cls.theme_style = "Dark"
+
+        self.theme_cls.primary_palette = "Red"
+        self.theme_cls.accent_palette = "Blue"
+        return self.sm
+
+    def clear_object_list(self):
+        self.object_list = []
 
 
 if __name__ == "__main__":
-    MyMainApp().run()
+    KickboxingApp().run()
 
 
-# TODO: Pop up for errors
+# TODO: - About, - Disclaimer
