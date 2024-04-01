@@ -12,23 +12,23 @@ class MoveResult(MDScreen):
 
     Attributes
     ----------
-    self.count
-    self.results_list
+    self.count: int
+        count for using as list index
+    self.results_list: list
+        list for storing results
 
     Methods
     -------
+    __init__:
+        Constructor for MoveResult object
     got_move_json(req, result)
         For displaying the data of single result move requests
-
     got_list_json(req, result)
         Sets self.results_list to move request results for list searches and displays the first index
-
     increase_count()
         For increasing self.count and using it as index for self.results_list to update displayed results
-
     decrease_count()
         For decreasing self.count and using it as index for self.results_list to update displayed results
-
     """
 
     code = ObjectProperty(None)
