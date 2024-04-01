@@ -1,3 +1,9 @@
+#:import os os
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:set root_color get_color_from_hex("#7d60f6")
+#:import Gradient kivy_gradient.Gradient
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
 Screen:
     MDRaisedButton:
         text: "Light Button"
@@ -111,3 +117,12 @@ Screen:
     MDIcon:
         icon: "arrow-left-bold-circle"
         pos_hint: {"center_x": 0.3, "center_y": 0.3}
+
+    MDRaisedButton:
+        md_bg_color: app.theme_cls.bg_dark
+        theme_text_color: "Custom"
+        text_color: get_color_from_hex("#49474c")
+        ripple_color: root_color
+        pos_hint: {"center_x": 0.8, "center_y": 0.5}
+
+        texture: Gradient.horizontal(get_color_from_hex("E91E63"), get_color_from_hex("FCE4EC"), get_color_from_hex("2962FF"))
