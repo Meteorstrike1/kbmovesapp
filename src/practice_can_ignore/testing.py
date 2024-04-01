@@ -15,6 +15,7 @@ class ButtonScreenOneScreen(MDScreen):
 
 
 class AwesomeApp(MDApp):
+    """This is just an app I'm using to practice things with."""
     def build(self):
         self.theme_cls.theme_style = "Dark"
         # self.theme_cls.material_style = "M3"

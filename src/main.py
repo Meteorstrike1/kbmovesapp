@@ -52,25 +52,37 @@ class WindowManager(MDScreenManager):
 
 kv = Builder.load_file("main.kv")
 
-# sm = WindowManager()
-#
-# screens = [HomeWindow(name="home"), StartWindow(name="startpage"), RefWindow(name="reference"),
-#            MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), Freeform(name="freeform"),
-#            PracticeWindow(name="practice"), MoveBuilder(name="movebuilder")]
-# for screen in screens:
-#     sm.add_widget(screen)
-#
-# sm.current = "home"
-
 
 class KickboxingApp(MDApp):
+    """
+    App class, inherits from MDApp.
+
+    Attributes
+    ----------
+    object_list: ListProperty
+        variable for storing list of objects globally so can be accessed across different widgets
+    self.sm: WindowManager
+        WindowManger instance
+
+    Methods
+    -------
+    __init__:
+        Constructor for App class
+    build:
+        Build method, add screens to window manager, set theme colours
+    clear_object_list:
+        Method to reset the object list to an empty list
+    """
+
     object_list = ListProperty()
 
     def __init__(self, **kwargs):
+        """Constructor for App class."""
         self.sm = WindowManager()
         super().__init__(**kwargs)
 
     def build(self):
+        """Build method, add screens to window manager, set theme colours."""
         self.sm.add_widget(HomeWindow(name="home"))
         self.sm.add_widget(StartWindow(name="startpage"))
         self.sm.add_widget(RefWindow(name="reference"))
@@ -88,6 +100,7 @@ class KickboxingApp(MDApp):
         return self.sm
 
     def clear_object_list(self):
+        """Method to reset the object list to an empty list."""
         self.object_list = []
 
 
