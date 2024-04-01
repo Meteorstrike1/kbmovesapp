@@ -38,6 +38,10 @@ class RefWindow(MDScreen):
     pass
 
 
+class MoveMenu(MDScreen):
+    pass
+
+
 class PracticeWindow(MDScreen):
     pass
 
@@ -63,7 +67,6 @@ class KickboxingApp(MDApp):
     object_list = ListProperty()
 
     def __init__(self, **kwargs):
-        # self.object_list = []
         self.sm = WindowManager()
         super().__init__(**kwargs)
 
@@ -71,6 +74,7 @@ class KickboxingApp(MDApp):
         self.sm.add_widget(HomeWindow(name="home"))
         self.sm.add_widget(StartWindow(name="startpage"))
         self.sm.add_widget(RefWindow(name="reference"))
+        self.sm.add_widget(MoveMenu(name="movemenu"))
         self.sm.add_widget(MoveSearch(name="movesearch"))
         self.sm.add_widget(BeltColour(name="beltcolour"))
         self.sm.add_widget(Freeform(name="freeform"))
@@ -79,7 +83,6 @@ class KickboxingApp(MDApp):
         self.sm.current = "home"
 
         self.theme_cls.theme_style = "Dark"
-
         self.theme_cls.primary_palette = "Red"
         self.theme_cls.accent_palette = "Blue"
         return self.sm

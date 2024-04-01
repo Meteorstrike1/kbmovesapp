@@ -1,7 +1,7 @@
-#: include movesearch.kv
-#: include beltcolour.kv
-#: include freeform.kv
-#: include movebuilder.kv
+#:include movesearch.kv
+#:include beltcolour.kv
+#:include freeform.kv
+#:include movebuilder.kv
 
 <HomeWindow>:
     name: 'home'
@@ -93,17 +93,17 @@
             size_hint: 0.35, 0.15
 
         MDRaisedButton:
-            text: 'Search a move'
+            text: 'Moves'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            on_release: app.root.current = 'movesearch'
+            on_release: app.root.current = 'movemenu'
             pos_hint: {"x":0.35, "y":0.7}
             md_bg_color: app.theme_cls.primary_dark
             on_release:
                 root.manager.transition.direction = "left"
 
         MDRaisedButton:
-            text: 'Move by belt'
+            text: 'Combinations'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
             on_release: app.root.current = 'beltcolour'
@@ -119,6 +119,66 @@
             on_release: app.root.current = 'freeform'
             pos_hint: {"x":0.35, "y":0.3}
             md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.manager.transition.direction = "right"
+
+<MoveMenu>:
+    name: 'movemenu'
+
+    FloatLayout:
+        Label:
+            text: 'Moves'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        MDRaisedButton:
+            text: 'By name'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movesearch'
+            pos_hint: {"center_x":0.3, "center_y":0.66}
+            md_bg_color: get_color_from_hex("#9c0000")
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'By belt'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'beltcolour'
+            pos_hint: {"center_x":0.7, "center_y":0.66}
+            md_bg_color: get_color_from_hex("#fc9d03")
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Hand defences'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"center_x":0.3, "center_y":0.36}
+            md_bg_color: get_color_from_hex("#852904")
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Leg defences'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"center_x":0.7, "center_y":0.36}
+            md_bg_color: get_color_from_hex("#5b7db3")
             on_release:
                 root.manager.transition.direction = "left"
 
