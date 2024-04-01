@@ -205,7 +205,7 @@ class RelatedMovesById(Resource):
     @moves_ns.marshal_list_with(moves_dto)
     def get(self, id):
         """Get list of related moves"""
-        related_moves = Moves.query.filter(Moves.id == id).first().related_moves
+        related_moves = Moves.query.filter(Moves.id == id).first_or_404().related_moves
 
         if related_moves is None:
             return abort(404, "No related moves")
@@ -223,7 +223,7 @@ class RelatedMovesByCode(Resource):
     @moves_ns.marshal_list_with(moves_dto)
     def get(self, code):
         """Get list of related moves"""
-        related_moves = Moves.query.filter(Moves.code == code).first().related_moves
+        related_moves = Moves.query.filter(Moves.code == code).first_or_404().related_moves
 
         if related_moves is None:
             return abort(404, "No related moves")
