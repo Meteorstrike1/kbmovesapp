@@ -38,6 +38,10 @@ class RefWindow(MDScreen):
     pass
 
 
+class MoveMenu(MDScreen):
+    pass
+
+
 class PracticeWindow(MDScreen):
     pass
 
@@ -48,29 +52,41 @@ class WindowManager(MDScreenManager):
 
 kv = Builder.load_file("main.kv")
 
-# sm = WindowManager()
-#
-# screens = [HomeWindow(name="home"), StartWindow(name="startpage"), RefWindow(name="reference"),
-#            MoveSearch(name="movesearch"), BeltColour(name="beltcolour"), Freeform(name="freeform"),
-#            PracticeWindow(name="practice"), MoveBuilder(name="movebuilder")]
-# for screen in screens:
-#     sm.add_widget(screen)
-#
-# sm.current = "home"
-
 
 class KickboxingApp(MDApp):
+    """
+    App class, inherits from MDApp.
+
+    Attributes
+    ----------
+    object_list: ListProperty
+        variable for storing list of objects globally so can be accessed across different widgets
+    self.sm: WindowManager
+        WindowManger instance
+
+    Methods
+    -------
+    __init__:
+        Constructor for App class
+    build:
+        Build method, add screens to window manager, set theme colours
+    clear_object_list:
+        Method to reset the object list to an empty list
+    """
+
     object_list = ListProperty()
 
     def __init__(self, **kwargs):
-        # self.object_list = []
+        """Constructor for App class."""
         self.sm = WindowManager()
         super().__init__(**kwargs)
 
     def build(self):
+        """Build method, add screens to window manager, set theme colours."""
         self.sm.add_widget(HomeWindow(name="home"))
         self.sm.add_widget(StartWindow(name="startpage"))
         self.sm.add_widget(RefWindow(name="reference"))
+        self.sm.add_widget(MoveMenu(name="movemenu"))
         self.sm.add_widget(MoveSearch(name="movesearch"))
         self.sm.add_widget(BeltColour(name="beltcolour"))
         self.sm.add_widget(Freeform(name="freeform"))
@@ -79,12 +95,12 @@ class KickboxingApp(MDApp):
         self.sm.current = "home"
 
         self.theme_cls.theme_style = "Dark"
-
         self.theme_cls.primary_palette = "Red"
         self.theme_cls.accent_palette = "Blue"
         return self.sm
 
     def clear_object_list(self):
+        """Method to reset the object list to an empty list."""
         self.object_list = []
 
 

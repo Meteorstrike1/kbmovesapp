@@ -1,4 +1,4 @@
-#: include main.kv
+#:include main.kv
 
 <BeltColour>:
     name: 'beltcolour'
@@ -27,7 +27,7 @@
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            on_release: app.root.current = 'reference'
+            on_release: app.root.current = 'movemenu'
             pos_hint: {"x":0.05, "y":0.05}
             on_release:
                 root.clear_results()

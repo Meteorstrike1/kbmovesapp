@@ -1,28 +1,25 @@
-from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.network.urlrequest import UrlRequest
-from functools import partial
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.widget import Widget
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from kivy.uix.button import Button
 from screens.moveresult import MoveResult, no_results
 
 
 class MoveSearch(MoveResult):
+    """
+    Move search class, search by name or id, inheriting from MoveResult.
+    Will probably retire this class and replace with BeltColour list generation method, this was just first step for me
+    displaying results.
+    """
 
     def call_search_type(self):
+        """Switch method being used with the search box depending on the text selection."""
         if self.toggle.text == "By name":
             self.search_by_name()
         if self.toggle.text == "By id":
             self.search_by_id()
 
     def search_by_name(self):
-        """Search by move name"""
+        """Search by move name, calls got_list_json on success, no_results on failure."""
         if self.user_search.text == "":
             return
         print(self.user_search.text)
@@ -34,6 +31,7 @@ class MoveSearch(MoveResult):
         self.count = 0
 
     def search_by_id(self):
+        """Search by id, calls got_move_json on success, no_results on failure, invalid_search if not int."""
         if self.user_search.text == "":
             return
         else:
@@ -48,6 +46,7 @@ class MoveSearch(MoveResult):
         self.clear_result()
 
     def update_label(self):
+        """Changes the button label and colour if switch between id and name."""
         if self.toggle.text == "By name":
             self.toggle.text = "By id"
             self.toggle.md_bg_color = "green"
@@ -58,11 +57,13 @@ class MoveSearch(MoveResult):
         self.clear_result()
 
     def clear_and_reset(self):
+        """Calls clear_result (inherited method) and resets user_search text."""
         self.clear_result()
         self.user_search.text = ""
 
 
 def invalid_search(error):
+    """Pop up to warn user of invalid input."""
     print(error)
     pop = Popup(title="Invalid input", content=Label(text="Please search for a number"), size_hint=(None, None),
                 size=(300, 200))
