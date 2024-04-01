@@ -1,0 +1,244 @@
+#:include movesearch.kv
+#:include beltcolour.kv
+#:include freeform.kv
+#:include movebuilder.kv
+
+<HomeWindow>:
+    name: 'home'
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        Label:
+            text: 'Home page!'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        Image:
+            source: 'kblogo.png'
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: 0.4, 0.4
+
+        Label:
+            text: ""
+            size_hint: 0.05, 0.05
+
+        MDRaisedButton:
+            text: 'Start'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"center_x": 0.5, "center_y": 0.2}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        Label:
+            text: ""
+            size_hint: 0.05, 0.05
+
+<StartWindow>:
+    name: 'startpage'
+
+    FloatLayout:
+        Label:
+            text: 'Start'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        MDRaisedButton:
+            text: 'Reference'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'reference'
+            pos_hint: {"x":0.35, "y":0.6}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Practice'
+            size_hint: 0.3, 0.2
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'practice'
+            pos_hint: {"x":0.35, "y":0.35}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'home'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.manager.transition.direction = "right"
+
+<RefWindow>:
+    name: 'reference'
+
+    FloatLayout:
+        Label:
+            text: 'Reference'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        MDRaisedButton:
+            text: 'Moves'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movemenu'
+            pos_hint: {"x":0.35, "y":0.7}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Combinations'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'beltcolour'
+            pos_hint: {"x":0.35, "y":0.5}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Freeform 1'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"x":0.35, "y":0.3}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.manager.transition.direction = "right"
+
+<MoveMenu>:
+    name: 'movemenu'
+
+    FloatLayout:
+        Label:
+            text: 'Moves'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        MDRaisedButton:
+            text: 'By name'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movesearch'
+            pos_hint: {"center_x":0.3, "center_y":0.66}
+            md_bg_color: get_color_from_hex("#9c0000")
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'By belt'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'beltcolour'
+            pos_hint: {"center_x":0.7, "center_y":0.66}
+            md_bg_color: get_color_from_hex("#fc9d03")
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Hand defences'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"center_x":0.3, "center_y":0.36}
+            md_bg_color: get_color_from_hex("#852904")
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Leg defences'
+            size_hint: 0.28, 0.22
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"center_x":0.7, "center_y":0.36}
+            md_bg_color: get_color_from_hex("#5b7db3")
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.manager.transition.direction = "right"
+
+<PracticeWindow>:
+    name: 'practice'
+
+    FloatLayout:
+        Label:
+            text: 'Practice'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.32, "top":0.95}
+            size_hint: 0.35, 0.15
+
+        MDRaisedButton:
+            text: 'Moves'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movebuilder'
+            pos_hint: {"x":0.35, "y":0.7}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Combinations'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'beltcolour'
+            pos_hint: {"x":0.35, "y":0.5}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            text: 'Blackbelt modules'
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'freeform'
+            pos_hint: {"x":0.35, "y":0.3}
+            md_bg_color: app.theme_cls.primary_dark
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'startpage'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.manager.transition.direction = "right"
+
+

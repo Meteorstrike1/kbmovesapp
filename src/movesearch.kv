@@ -1,0 +1,105 @@
+#: include main.kv
+
+<MoveSearch>:
+    name: 'movesearch'
+
+    code: code
+    move_name: move_name
+    belt_colour: belt_colour
+    lesson_plan: lesson_plan
+    related_moves: related_moves
+    in_module: in_module
+    user_search: user_search
+    toggle: toggle
+
+    FloatLayout:
+        MDLabel:
+            text: 'Get a move'
+            font_style: "H5"
+            font_size: 30
+            pos_hint: {"center_x":0.55, "center_y":0.9}
+            size_hint: 0.35, 0.15
+
+        MDLabel:
+            id: move_name
+            pos_hint: {"x":0.3, "top":0.85}
+            size_hint: 0.5, 0.1
+            text: "Name: "
+
+        MDLabel:
+            id: code
+            pos_hint: {"x":0.3, "top":0.8}
+            size_hint: 0.5, 0.1
+            text: "Move ID: "
+
+        MDLabel:
+            id: belt_colour
+            pos_hint: {"x":0.3, "top":0.75}
+            size_hint: 0.5, 0.1
+            text: "Belt: "
+
+        MDLabel:
+            id: lesson_plan
+            pos_hint: {"x":0.3, "top":0.7}
+            size_hint: 0.5, 0.1
+            text: "Lesson plan: "
+
+        MDLabel:
+            id: related_moves
+            pos_hint: {"x":0.3, "top":0.65}
+            size_hint: 0.5, 0.1
+            text: "Related: "
+
+        MDLabel:
+            id: in_module
+            pos_hint: {"x":0.3, "top":0.6}
+            size_hint: 0.5, 0.1
+            text: "Module: "
+
+        MDRaisedButton:
+            id: toggle
+            text: 'By id'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"center_x":0.8, "y":0.05}
+            md_bg_color: "green"
+            on_release: root.update_label()
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movemenu'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.clear_and_reset()
+                root.manager.transition.direction = "right"
+
+        MDIconButton:
+            icon: "arrow-right-bold-outline"
+            size_hint: 0.1, 0.1
+            pos_hint: {"center_x":0.58, "center_y":0.36}
+            on_release: root.increase_count()
+
+        MDIconButton:
+            icon: "arrow-left-bold-outline"
+            size_hint: 0.1, 0.1
+            pos_hint: {"center_x":0.43, "center_y":0.36}
+            on_release: root.decrease_count()
+
+        MDTextField:
+            id: user_search
+            font_size: (root.width**2 + root.height**2) / 14**4
+            multiline: False
+            size_hint: 0.35, 0.15
+            pos_hint: {"x":0.33, "y":0.16}
+            hint_text: "Enter move"
+
+        MDRaisedButton:
+            id: search
+            text: 'Search'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.4, "y":0.05}
+            on_release: root.call_search_type()
+            md_bg_color: app.theme_cls.primary_dark

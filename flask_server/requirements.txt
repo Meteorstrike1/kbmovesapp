@@ -1,5 +1,0 @@
-flask
-flask-sqlalchemy
-python-dotenv
-kivy
-flask_restx
