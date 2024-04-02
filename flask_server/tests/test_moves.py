@@ -5,6 +5,8 @@ from models import Moves
 from config import TestConfig
 
 endpoint = "/moves"
+
+
 class TestMoves(TestCase):
     """Testing Moves table"""
 

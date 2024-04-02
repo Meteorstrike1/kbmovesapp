@@ -1,4 +1,4 @@
-from models import Moves
+from models import Moves, ModuleOne, ModuleTwo
 from flask_restx import Resource, fields, Namespace
 from flask import abort
 
@@ -19,6 +19,15 @@ moves_dto = moves_ns.model("Moves", {
     "notes": fields.String
 })
 
+module_dto = moves_ns.model("ModuleOne", {
+    "id": fields.Integer,
+    "name": fields.String,
+    "code": fields.String,
+    "moves": fields.String,
+    "is_kick": fields.Boolean,
+    "is_jump": fields.Boolean,
+    "notes": fields.String
+})
 
 @moves_ns.route("/all")
 class MovesAll(Resource):
@@ -115,7 +124,7 @@ class Module2Moves(Resource):
     @moves_ns.marshal_list_with(moves_dto)
     def get(self):
         """Get list of all moves/related moves that appear in module 2"""
-        moves = Moves.query.filter(Moves.module_combo != "NULL", Moves.id > 88).all()
+        moves = Moves.query.filter(Moves.module_combo != "NULL", Moves.id >= 88).all()
         return moves
 
 
@@ -135,7 +144,7 @@ class MovesNotinModule2(Resource):
     @moves_ns.marshal_list_with(moves_dto)
     def get(self):
         """Get list of all moves that do not appear in module 2"""
-        moves = Moves.query.filter(Moves.module_combo.is_(None), Moves.id > 88).all()
+        moves = Moves.query.filter(Moves.module_combo.is_(None), Moves.id >= 88).all()
         return moves
 
 
@@ -233,4 +242,46 @@ class RelatedMovesByCode(Resource):
         moves = Moves.query.filter(Moves.code.in_(list_moves)).order_by(Moves.id).all()
 
         return moves
+
+@moves_ns.route("/module_combos/<int:id>")
+class ModuleCombosById(Resource):
+
+    @moves_ns.marshal_list_with(module_dto)
+    def get(self, id):
+        """Get list of blackbelt combinations that move appears in by code"""
+        module_combo = Moves.query.filter(Moves.id == id).first_or_404().module_combo
+
+        if module_combo is None:
+            return abort(404, "No blackbelt module combinations")
+
+        no_whitespace = module_combo.replace(" ", "")
+        list_moves = no_whitespace.split(",")
+        if id < 88:
+            combos = ModuleOne.query.filter(ModuleOne.code.in_(list_moves)).order_by(ModuleOne.id).all()
+        elif id >= 88:
+            combos = ModuleTwo.query.filter(ModuleTwo.code.in_(list_moves)).order_by(ModuleTwo.id).all()
+
+        return combos
+
+
+@moves_ns.route("/module_combos/<string:code>")
+class ModuleCombosByCode(Resource):
+
+    @moves_ns.marshal_list_with(module_dto)
+    def get(self, code):
+        """Get list of blackbelt combinations that move appears in by code"""
+        move_id = Moves.query.filter(Moves.code == code).first_or_404().id
+        module_combo = Moves.query.filter(Moves.id == move_id).first_or_404().module_combo
+
+        if module_combo is None:
+            return abort(404, "No blackbelt module combinations")
+
+        no_whitespace = module_combo.replace(" ", "")
+        list_moves = no_whitespace.split(",")
+        if move_id < 88:
+            combos = ModuleOne.query.filter(ModuleOne.code.in_(list_moves)).order_by(ModuleOne.id).all()
+        elif move_id >= 88:
+            combos = ModuleTwo.query.filter(ModuleTwo.code.in_(list_moves)).order_by(ModuleTwo.id).all()
+
+        return combos
 
