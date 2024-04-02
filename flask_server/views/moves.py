@@ -63,6 +63,8 @@ class MovesByColour(Resource):
     def get(self, colour):
         """Get moves by belt colour"""
         moves = Moves.query.filter(Moves.belt_colour == colour).all()
+        if len(moves) == 0:
+            return abort(404, "No moves found")
         return moves
 
 
