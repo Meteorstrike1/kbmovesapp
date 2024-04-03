@@ -42,6 +42,10 @@ class MoveMenu(MDScreen):
     pass
 
 
+class ComboMenu(MDScreen):
+    pass
+
+
 class PracticeWindow(MDScreen):
     pass
 
@@ -87,6 +91,7 @@ class KickboxingApp(MDApp):
         self.sm.add_widget(StartWindow(name="startpage"))
         self.sm.add_widget(RefWindow(name="reference"))
         self.sm.add_widget(MoveMenu(name="movemenu"))
+        self.sm.add_widget(ComboMenu(name="combomenu"))
         self.sm.add_widget(MoveSearch(name="movesearch"))
         self.sm.add_widget(BeltColour(name="beltcolour"))
         self.sm.add_widget(Freeform(name="freeform"))
