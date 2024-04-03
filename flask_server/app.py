@@ -2,6 +2,8 @@ from flask import Flask
 from extensions import db
 from config import DevConfig, TestConfig
 from views.moves import moves_ns
+from views.module_one import module_one_ns
+from views.module_two import module_two_ns
 from flask_restx import Api
 
 
@@ -21,6 +23,8 @@ def create_app(test_config=None):
     api = Api(app)
 
     api.add_namespace(moves_ns)
+    api.add_namespace(module_one_ns)
+    api.add_namespace(module_two_ns)
 
     return app
 
