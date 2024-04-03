@@ -1,6 +1,4 @@
 import unittest
-from app import create_app, db
-from models import Moves
 from test_class import TestAPI
 
 endpoint = "/moves"
@@ -253,9 +251,172 @@ class TestMoves(TestAPI):
         status_code = get_response.status_code
         expected = 1
         result = len(get_response.json)
-        print(result)
 
         self.assertEqual(status_code, 200)
+        self.assertEqual(expected, result)
+
+    def test_get_related_moves_by_id_success(self):
+        """List of related moves by id, found"""
+        id = 3
+        get_response = self.client.get(f"{endpoint}/related_moves/{id}")
+        status_code = get_response.status_code
+        expected = "front kick back leg"
+        result = get_response.json[0]["name"]
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(expected, result)
+
+    def test_get_related_moves_by_id_none_fail(self):
+        """List of related moves by id, not found"""
+        id = 1
+        get_response = self.client.get(f"{endpoint}/related_moves/{id}")
+        status_code = get_response.status_code
+        expected = {'message': f'No related moves. You have requested this URI [/moves/related_moves/{id}] '
+                               f'but did you mean /moves/related_moves/<string:code> or /moves/name/<string:name> '
+                               f'or /moves/belt/<string:colour> ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(expected, result)
+
+    def test_get_combination_by_missing_id_fail(self):
+        """List of related moves by id that doesn't exist in data"""
+        id = 26
+        get_response = self.client.get(f"{endpoint}/related_moves/{id}")
+        status_code = get_response.status_code
+
+        self.assertEqual(status_code, 404)
+
+    def test_get_related_moves_by_id_missing_fail(self):
+        """List of related moves by id, related code not in data"""
+        id = 5
+        get_response = self.client.get(f"{endpoint}/related_moves/{id}")
+        status_code = get_response.status_code
+        expected = {'message': f'Related moves could not be found. You have requested this URI '
+                               f'[/moves/related_moves/{id}] but did you mean /moves/related_moves/<string:code> '
+                               f'or /moves/name/<string:name> or /moves/belt/<string:colour> ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(expected, result)
+
+    def test_get_related_moves_by_code_success(self):
+        """List of related moves by code, found"""
+        code = "RW4"
+        get_response = self.client.get(f"{endpoint}/related_moves/{code}")
+        status_code = get_response.status_code
+        expected = "front kick front leg"
+        result = get_response.json[0]["name"]
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(expected, result)
+
+    def test_get_related_moves_by_code_none_fail(self):
+        """List of related moves by code, not found"""
+        code = "RW2"
+        get_response = self.client.get(f"{endpoint}/related_moves/{code}")
+        status_code = get_response.status_code
+        expected = {'message': f'No related moves. You have requested this URI [/moves/related_moves/{code}]'
+                               f' but did you mean /moves/related_moves/<string:code> or /moves/name/<string:name> '
+                               f'or /moves/belt/<string:colour> ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(expected, result)
+
+    def test_get_combination_by_missing_code_fail(self):
+        """List of related moves by code that doesn't exist in data"""
+        code = "RW26"
+        get_response = self.client.get(f"{endpoint}/related_moves/{code}")
+        status_code = get_response.status_code
+
+        self.assertEqual(status_code, 404)
+
+    def test_get_related_moves_by_code_missing_fail(self):
+        """List of related moves by code, related code not in data"""
+        code = "RW5"
+        get_response = self.client.get(f"{endpoint}/related_moves/{code}")
+        status_code = get_response.status_code
+        expected = {'message': f'Related moves could not be found. You have requested this URI '
+                               f'[/moves/related_moves/{code}] but did you mean /moves/related_moves/<string:code> '
+                               f'or /moves/name/<string:name> or /moves/belt/<string:colour> ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(expected, result)
+
+    def test_get_module_combos_by_id_success(self):
+        """List of blackbelt combinations move appears in by id, found"""
+        id = 1
+        get_response = self.client.get(f"{endpoint}/module_combos/{id}")
+        status_code = get_response.status_code
+        expected = "Snap punch, reverse punch, front kick front leg"
+        result = get_response.json[0]["name"]
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(expected, result)
+
+    def test_get_module_combos_by_id_none_fail(self):
+        """List of blackbelt combinations move appears in by id, not found"""
+        id = 98
+        get_response = self.client.get(f"{endpoint}/module_combos/{id}")
+        status_code = get_response.status_code
+        expected = {'message': f'No blackbelt module combinations. You have requested this URI '
+                               f'[/moves/module_combos/{id}] but did you mean /moves/module_combos/<string:code> '
+                               f'or /moves/in_module_2 or /moves/in_module_1 ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(expected, result)
+
+    def test_get_combo_modules_by_id_missing_fail(self):
+        """List of blackbelt combinations move appears in by id, combination not in data"""
+        id = 11
+        get_response = self.client.get(f"{endpoint}/module_combos/{id}")
+        status_code = get_response.status_code
+        expected = {'message': f'Blackbelt combinations could not be found. You have requested this URI '
+                               f'[/moves/module_combos/{id}] but did you mean /moves/module_combos/<string:code> '
+                               f'or /moves/in_module_1 or /moves/not_module_1 ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(expected, result)
+
+    def test_get_module_combos_by_code_success(self):
+        """List of blackbelt combinations move appears in by code, found"""
+        code = "RW1"
+        get_response = self.client.get(f"{endpoint}/module_combos/{code}")
+        status_code = get_response.status_code
+        expected = "Snap punch, reverse punch, front kick front leg"
+        result = get_response.json[0]["name"]
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(expected, result)
+
+    def test_get_module_combos_by_code_none_fail(self):
+        """List of blackbelt combinations move appears in by code, not found"""
+        code = "BW11"
+        get_response = self.client.get(f"{endpoint}/module_combos/{code}")
+        status_code = get_response.status_code
+        expected = {'message': f'No blackbelt module combinations. You have requested this URI '
+                               f'[/moves/module_combos/{code}] but did you mean /moves/module_combos/<string:code> '
+                               f'or /moves/in_module_1 or /moves/not_module_1 ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(expected, result)
+
+    def test_get_combo_modules_by_code_missing_fail(self):
+        """List of blackbelt combinations move appears in by code, combination not in data"""
+        code = "RW11"
+        get_response = self.client.get(f"{endpoint}/module_combos/{code}")
+        status_code = get_response.status_code
+        expected = {'message': f'Blackbelt combinations could not be found. You have requested this URI '
+                               f'[/moves/module_combos/{code}] but did you mean /moves/module_combos/<string:code> '
+                               f'or /moves/in_module_1 or /moves/not_module_1 ?'}
+        result = get_response.json
+
+        self.assertEqual(status_code, 404)
         self.assertEqual(expected, result)
 
 

@@ -81,4 +81,13 @@ module_2_data = [
         "is_jump": False,
         "notes": None
     },
+    {
+        "id": 99,
+        "name": "Test kick",
+        "code": "M2_99",
+        "moves": None,
+        "is_kick": False,
+        "is_jump": False,
+        "notes": "Test example of a combination that is missing its move data."
+    },
 ]

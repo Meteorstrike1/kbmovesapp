@@ -57,6 +57,8 @@ class ComboMovesById(Resource):
         no_whitespace = combo_moves.replace(" ", "")
         list_moves = no_whitespace.split(",")
         moves = Moves.query.filter(Moves.code.in_(list_moves)).order_by(Moves.id).all()
+        if len(moves) == 0:
+            return abort(404, "Combination moves could not be found")
 
         return moves
 
@@ -75,6 +77,8 @@ class ComboMovesByCode(Resource):
         no_whitespace = combo_moves.replace(" ", "")
         list_moves = no_whitespace.split(",")
         moves = Moves.query.filter(Moves.code.in_(list_moves)).order_by(Moves.id).all()
+        if len(moves) == 0:
+            return abort(404, "Combination moves could not be found")
 
         return moves
 

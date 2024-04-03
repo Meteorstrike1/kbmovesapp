@@ -224,6 +224,8 @@ class RelatedMovesById(Resource):
         no_whitespace = related_moves.replace(" ", "")
         list_moves = no_whitespace.split(",")
         moves = Moves.query.filter(Moves.code.in_(list_moves)).order_by(Moves.id).all()
+        if len(moves) == 0:
+            return abort(404, "Related moves could not be found")
 
         return moves
 
@@ -242,6 +244,8 @@ class RelatedMovesByCode(Resource):
         no_whitespace = related_moves.replace(" ", "")
         list_moves = no_whitespace.split(",")
         moves = Moves.query.filter(Moves.code.in_(list_moves)).order_by(Moves.id).all()
+        if len(moves) == 0:
+            return abort(404, "Related moves could not be found")
 
         return moves
 
@@ -262,6 +266,8 @@ class ModuleCombosById(Resource):
             combos = ModuleOne.query.filter(ModuleOne.code.in_(list_moves)).order_by(ModuleOne.id).all()
         elif id >= 88:
             combos = ModuleTwo.query.filter(ModuleTwo.code.in_(list_moves)).order_by(ModuleTwo.id).all()
+        if len(combos) == 0:
+            return abort(404, "Blackbelt combinations could not be found")
 
         return combos
 
@@ -284,6 +290,8 @@ class ModuleCombosByCode(Resource):
             combos = ModuleOne.query.filter(ModuleOne.code.in_(list_moves)).order_by(ModuleOne.id).all()
         elif move_id >= 88:
             combos = ModuleTwo.query.filter(ModuleTwo.code.in_(list_moves)).order_by(ModuleTwo.id).all()
+        if len(combos) == 0:
+            return abort(404, "Blackbelt combinations could not be found")
 
         return combos
 

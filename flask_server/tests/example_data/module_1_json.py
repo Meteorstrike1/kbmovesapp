@@ -44,7 +44,8 @@ module_1_data = [
         "is_kick": True,
         "is_jump": False,
         "notes": None
-    }, {
+    },
+    {
         "id": 17,
         "name": "Downward hook deflection, palm heel strike to groin, jump roundhouse kick",
         "code": "M1_17",
@@ -52,5 +53,14 @@ module_1_data = [
         "is_kick": True,
         "is_jump": True,
         "notes": "Doesn't specify but back arm easier for palm heel strike."
+    },
+    {
+        "id": 99,
+        "name": "Test kick",
+        "code": "M1_99",
+        "moves": None,
+        "is_kick": False,
+        "is_jump": False,
+        "notes": "Test example of a combination that is missing its move data."
     },
 ]
