@@ -2,6 +2,8 @@
 #:include beltcolour.kv
 #:include freeform.kv
 #:include movebuilder.kv
+#:include module1.kv
+#:include screens/combomovedialog.kv
 
 <HomeWindow>:
     name: 'home'
@@ -226,7 +228,7 @@
             text: 'Module 1'
             size_hint: 0.28, 0.22
             font_size: (root.width**2 + root.height**2) / 14**4
-            on_release: app.root.current = 'movesearch'
+            on_release: app.root.current = 'moduleone'
             pos_hint: {"center_x":0.3, "center_y":0.36}
             md_bg_color: get_color_from_hex("#524040")
             on_release:

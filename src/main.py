@@ -11,6 +11,7 @@ from kivy.uix.widget import Widget
 from movesearch import MoveSearch
 from beltcolour import BeltColour
 from freeform import Freeform
+from module1 import ModuleOne
 from data.freeform1 import string
 from movebuilder import MoveBuilder
 from kivymd.uix.button import MDTextButton
@@ -79,6 +80,7 @@ class KickboxingApp(MDApp):
     """
 
     object_list = ListProperty()
+    module_list = ListProperty()
 
     def __init__(self, **kwargs):
         """Constructor for App class."""
@@ -95,6 +97,7 @@ class KickboxingApp(MDApp):
         self.sm.add_widget(MoveSearch(name="movesearch"))
         self.sm.add_widget(BeltColour(name="beltcolour"))
         self.sm.add_widget(Freeform(name="freeform"))
+        self.sm.add_widget(ModuleOne(name="moduleone"))
         self.sm.add_widget(PracticeWindow(name="practice"))
         self.sm.add_widget(MoveBuilder(name="movebuilder"))
         self.sm.current = "home"
@@ -107,6 +110,10 @@ class KickboxingApp(MDApp):
     def clear_object_list(self):
         """Method to reset the object list to an empty list."""
         self.object_list = []
+
+    def clear_module_list(self):
+        """Method to reset the object list to an empty list."""
+        self.module_list = []
 
 
 if __name__ == "__main__":
