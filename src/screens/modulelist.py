@@ -66,8 +66,6 @@ class ModuleOneLineListItem(OneLineListItem):
             MDRaisedButton(text="Move details", on_release=self.search_moves_in_combo),
             MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 4.5})])
         self.dialog.open()
-        # print(MDApp.get_running_app().object_list[self.position])
-        # print("Something")
 
     def close_dialog(self, instance):
         """Closes dialog pop up."""
@@ -96,10 +94,7 @@ class ModuleOneLineListItem(OneLineListItem):
             no_results(req, error="Not found")
             return "no results"
         self.results_list = result
-        # self.move_details = MDList()
         self.move_details = MoveDialogContent()
-        # self.move_details = MDDialog()
-        # self.move_details.add_widget(MDList())
 
         for item in range(len(self.results_list)):
             name = result[item]["name"].capitalize()
@@ -116,81 +111,11 @@ class ModuleOneLineListItem(OneLineListItem):
             details = f"Move ID: {code} | Belt: {belt} | Lesson plan: {plan}"
             new_list = ThreeLineListItem(text=name, secondary_text=details, tertiary_text=notes_text)
             self.move_details.moves_popup.add_widget(new_list)
-            # MDApp.get_running_app().object_list.append(new_list)
 
-        new_widget = self.move_details
-        # self.move_popup = MDDialog(size_hint=[0.9, None], type="custom", content_cls=MoveDialogContent(size_hint=[1, 1]))
         self.move_popup = MDDialog()
-        self.move_popup.add_widget(new_widget)
-
+        self.move_popup.add_widget(self.move_details)
         self.move_popup.open()
 
-    # def show_moves(self, req, result):
-    #     if len(result) == 0:
-    #         no_results(req, error="Not found")
-    #         return "no results"
-    #     self.results_list = result
-    #     self.move_details = MDList()
-    #     # self.move_details = MDDialog()
-    #     # self.move_details.add_widget(MDList())
-    #
-    #     for item in range(len(self.results_list)):
-    #         name = result[item]["name"].capitalize()
-    #         code = result[item]["code"]
-    #         belt = result[item]["belt_colour"].capitalize()
-    #         plan = result[item]["lesson_plan"]
-    #         notes = result[item]["notes"]
-    #
-    #         if notes is not None:
-    #             notes_text = f"Notes: {notes}"
-    #         else:
-    #             notes_text = ""
-    #         # text = name
-    #         details = f"Move ID: {code}\nBelt: {belt}\nLesson plan: {plan}"
-    #         new_list = ThreeLineListItem(text=name, secondary_text=details, tertiary_text=notes_text)
-    #         self.move_details.add_widget(new_list)
-    #         MDApp.get_running_app().object_list.append(new_list)
-    #
-    #     new_widget = self.move_details
-    #     self.move_popup = MDDialog(size_hint=[0.9, None], type="custom", content_cls=MoveDialogContent(size_hint=[1, 1]))
-    #     self.move_popup.add_widget(new_widget)
-    #
-    #     self.move_popup.open()
-
-    # def show_moves(self, req, result):
-    #     if len(result) == 0:
-    #         no_results(req, error="Not found")
-    #         return "no results"
-    #     self.results_list = result
-    #     # self.move_details = MDList()
-    #     self.move_details = MDDialog(size_hint=[0.9, None], type="custom", content_cls=MoveDialogContent())
-    #     # self.move_details.add_widget(MDList())
-    #
-    #     for item in range(len(self.results_list)):
-    #         name = result[item]["name"].capitalize()
-    #         code = result[item]["code"]
-    #         belt = result[item]["belt_colour"].capitalize()
-    #         plan = result[item]["lesson_plan"]
-    #         notes = result[item]["notes"]
-    #
-    #         if notes is not None:
-    #             notes_text = f"Notes: {notes}"
-    #         else:
-    #             notes_text = ""
-    #         # text = name
-    #         details = f"Move ID: {code}\nBelt: {belt}\nLesson plan: {plan}"
-    #         new_list = ThreeLineListItem(text=name, secondary_text=details, tertiary_text=notes_text)
-    #         print(new_list)
-    #         self.move_details.add_widget(new_list)
-    #         MDApp.get_running_app().object_list.append(new_list)
-    #
-    #     # new_widget = self.move_details
-    #     # self.move_popup = MDDialog(size_hint=[0.9, None], type="custom", content_cls=MoveDialogContent())
-    #     # self.move_popup.add_widget(new_widget)
-    #
-    #     self.move_details.open()
-    #
-    #     # self.move_popup.open()
 
 def no_results(req, error):
     """Opens pop up window if no results found."""

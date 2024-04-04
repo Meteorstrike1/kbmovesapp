@@ -9,6 +9,4 @@ class MoveDialogContent(MDBoxLayout):
     pass
 
 
-class ComboDialogContent(MDBoxLayout):
-    pass
 
