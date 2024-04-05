@@ -38,23 +38,42 @@ class MoveOneLineListItem(OneLineListItem):
         dialog pop up, only IF the self.position is greater than 0
     """
 
-    def __init__(self, details, title, position, *args, **kwargs):
+    def __init__(self, details, title, position, id, related, module, *args, **kwargs):
         """Constructs all necessary attributes for the move list object."""
         self.dialog = None
         self.details = details
         self.title = title
         self.position = position
+        self.id = id
+        self.related = related
+        self.module = module
         super().__init__(*args, **kwargs)
 
     def on_release(self):
         """Creates MDDialog object with all of move details and buttons for navigating."""
-        self.dialog = MDDialog(title=self.title, text=self.details, buttons=[
+        buttons_list = [
             MDIconButton(icon="arrow-left-bold-outline", pos_hint={"x": -2, "y": 0.1}, on_release=self.prev_item),
             MDIconButton(icon="arrow-right-bold-outline", pos_hint={"x": -1.8, "y": 0.1}, on_release=self.next_item),
-            MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 4.5})])
+            MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 4.5})]
+        if self.related:
+            buttons_list.append(MDRaisedButton(text="Related", pos_hint={"x": -3, "y": 0.1}))
+        if self.module:
+            buttons_list.append(MDRaisedButton(text="Combinations", pos_hint={"x": -2.5, "y": 0.1}))
+        self.dialog = MDDialog(title=self.title, text=self.details, buttons=buttons_list)
         self.dialog.open()
-        # print(MDApp.get_running_app().object_list[self.position])
-        # print("Something")
+
+    # def on_release(self):
+    #     """Creates MDDialog object with all of move details and buttons for navigating."""
+    #     self.dialog = MDDialog(title=self.title, text=self.details, buttons=[
+    #         MDIconButton(icon="arrow-left-bold-outline", pos_hint={"x": -2, "y": 0.1}, on_release=self.prev_item),
+    #         MDIconButton(icon="arrow-right-bold-outline", pos_hint={"x": -1.8, "y": 0.1}, on_release=self.next_item),
+    #         MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 4.5})])
+    #     if self.related:
+    #         print("has related moves")
+    #         self.dialog.buttons = [MDRaisedButton(text="Move details", pos_hint={"x": 1, "y": 2})]
+    #     if self.module:
+    #         print("is in modules")
+    #     self.dialog.open()
 
     def close_dialog(self, instance):
         """Closes dialog pop up."""

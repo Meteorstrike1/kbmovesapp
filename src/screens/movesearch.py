@@ -3,7 +3,7 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.screen import MDScreen
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from .listclass import MoveOneLineListItem
+from .movelistclass import MoveOneLineListItem
 from kivymd.app import MDApp
 
 
@@ -57,6 +57,8 @@ class MoveSearch(MDScreen):
             code = result[item]["code"]
             belt = result[item]["belt_colour"].capitalize()
             plan = result[item]["lesson_plan"]
+            kick = result[item]["is_kick"]
+            jump = result[item]["is_jump"]
             module = result[item]["module_combo"]
             related = result[item]["related_moves"]
             notes = result[item]["notes"]
@@ -64,21 +66,28 @@ class MoveSearch(MDScreen):
             if module is not None:
                 if id < 88:
                     module_text = f"Module 1 combinations: {module.replace('M1_', '')}"
+                    is_module = True
                 else:
                     module_text = f"Module 2 combinations: {module.replace('M2_', '')}"
+                    is_module = True
             else:
                 module_text = ""
+                is_module = False
             if related is not None:
                 related_text = f"Related moves: {related}"
+                is_related = True
             else:
                 related_text = ""
+                is_related = False
             if notes is not None:
                 notes_text = f"Notes: {notes}"
             else:
                 notes_text = ""
             text = f"{name}"
-            details = f"Move ID: {code}\nBelt: {belt}\nLesson plan: {plan}\n{module_text}\n{related_text}\n{notes_text}"
-            new_list = MoveOneLineListItem(text=text, details=details, title=name, position=item)
+            details = f"Move ID: {code}\nBelt: {belt}\nLesson plan: {plan}\nKick: {kick}\nJump: {jump}\n{module_text}" \
+                      f"\n{related_text}\n{notes_text}"
+            new_list = MoveOneLineListItem(text=text, details=details, title=name, position=item, id=str(id),
+                                           related=is_related, module=is_module)
             self.move_list.add_widget(new_list)
             MDApp.get_running_app().object_list.append(new_list)
 
