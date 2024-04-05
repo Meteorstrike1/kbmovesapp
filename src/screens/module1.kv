@@ -1,0 +1,32 @@
+#:include main.kv
+
+<ModuleOne>:
+    name: 'moduleone'
+    on_enter: root.search_all_combos("module_1")
+
+    combo_list: combo_list
+
+    FloatLayout:
+        MDLabel:
+            text: 'Module 1'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"center_x":0.58, "center_y":0.93}
+            size_hint: 0.35, 0.15
+
+        ScrollView:
+            pos_hint: {"x": 0, "top": 0.9}
+            size_hint: 1, 0.72
+
+            MDList:
+                id: combo_list
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'combomenu'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.manager.transition.direction = "right"
+
