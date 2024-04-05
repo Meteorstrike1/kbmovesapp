@@ -15,15 +15,15 @@ class ModuleCombo(MDScreen):
     ----------
     self.results_list: list
         list for storing results
+    self.module_name: None
+        to be used for grabbing module namespace
 
     Methods
     -------
     __init__:
-        Constructor for BeltColour object
-    spinner_clicked(value):
-        Sets the spinner value to the search text
-    search_by_belt():
-        Makes a request to search by belt colour, on success calls update_result method, on failure no_results
+        Constructor for ModuleCombo object
+    search_all_combos(module):
+        Makes a request to search for all combinations, on success calls update_result method, on failure no_results
     update_result(req, result):
         Takes results from url request, clears widget if already exists, makes new widgets and adds to a list
     clear_results():
@@ -31,7 +31,6 @@ class ModuleCombo(MDScreen):
     """
 
     combo_list = ObjectProperty(None)
-
 
     def __init__(self, **kw):
         self.module_name = None
@@ -52,7 +51,6 @@ class ModuleCombo(MDScreen):
             no_results(req, error="Not found")
             return "no results"
         self.results_list = result
-        # self.module_name.text = self.module_id.text
         module = self.module_name
 
         for item in range(len(self.results_list)):

@@ -1,15 +1,14 @@
 #:include main.kv
 
-<ModuleTwo>:
-    name: 'moduletwo'
+<ModuleOne>:
+    name: 'moduleone'
+    on_enter: root.search_all_combos("module_1")
 
     combo_list: combo_list
 
-    on_enter: root.search_all_combos("module_2")
-
     FloatLayout:
         MDLabel:
-            text: 'Module 2'
+            text: 'Module 1'
             font_size: 30
             font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"center_x":0.58, "center_y":0.93}
@@ -30,5 +29,4 @@
             pos_hint: {"x":0.05, "y":0.05}
             on_release:
                 root.manager.transition.direction = "right"
-
 

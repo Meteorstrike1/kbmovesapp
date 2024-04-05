@@ -30,10 +30,12 @@ class ModuleOneLineListItem(OneLineListItem):
     __init__(details, title, position):
         Constructor for move one item list object
     on_release():
-        Creates an MDDialog object using the title and details passed into move list object, this object has buttons to
-        use the helper functions close_dialog, prev_item, and next_item
+        Creates an MDDialog object using the title and details passed into combination list object, this object has
+        buttons to use the helper functions close_dialog, search_moves_in_combo, prev_item, and next_item
     close_dialog(instance):
         Close the dialog popup
+    search_moves_in_combo(instance):
+        Makes a request to search for the moves in the combo, on success calls show_moves method, on failure no_results
     next_item(instance):
         Closes current dialog, uses the MDApp attribute object list (which each of these created objects were saved to
         from the results of move search) to proceed to next item in the list, and use on_release method to call the
@@ -42,10 +44,12 @@ class ModuleOneLineListItem(OneLineListItem):
         Closes current dialog, uses the MDApp attribute object list (which each of these created objects were saved to
         from the results of move search) to proceed to previous item in the list, and use on_release method to call the
         dialog pop up, only IF the self.position is greater than 0
+    show_moves(req, result):
+        Takes results from url request, adds moves to a custom box widget in a loop, adds an MDDialog & opens
     """
 
-    move_details = ObjectProperty
-    move_popup = ObjectProperty
+    move_details = ObjectProperty(None)
+    move_popup = ObjectProperty(None)
 
     def __init__(self, details, title, position, module, id, *args, **kwargs):
         """Constructs all necessary attributes for the combination list object."""
@@ -59,7 +63,7 @@ class ModuleOneLineListItem(OneLineListItem):
         super().__init__(*args, **kwargs)
 
     def on_release(self):
-        """Creates MDDialog object with all of combination details and buttons for navigating."""
+        """Creates MDDialog object with combination details and buttons for navigating."""
         self.dialog = MDDialog(title=self.title, text=self.details, buttons=[
             MDIconButton(icon="arrow-left-bold-outline", pos_hint={"x": -2, "y": 0.1}, on_release=self.prev_item),
             MDIconButton(icon="arrow-right-bold-outline", pos_hint={"x": -1.8, "y": 0.1}, on_release=self.next_item),
@@ -73,7 +77,7 @@ class ModuleOneLineListItem(OneLineListItem):
             self.dialog.dismiss()
 
     def search_moves_in_combo(self, instance):
-        """Makes a request to search moves in combo, on success calls update_result method, on failure no_results."""
+        """Makes a request to search moves in combo, on success calls show_moves method, on failure no_results."""
         req = UrlRequest(f"http://127.0.0.1:5000/{self.module}/combo_moves/{self.id}", on_success=self.show_moves,
                          on_error=no_results, on_failure=no_results)
 
@@ -90,6 +94,7 @@ class ModuleOneLineListItem(OneLineListItem):
             MDApp.get_running_app().module_list[self.position - 1].on_release()
 
     def show_moves(self, req, result):
+        """Takes results from url request, adds moves to a custom box widget in a loop, adds to an MDDialog & opens"""
         if len(result) == 0:
             no_results(req, error="Not found")
             return "no results"
@@ -107,7 +112,6 @@ class ModuleOneLineListItem(OneLineListItem):
                 notes_text = f"Notes: {notes}"
             else:
                 notes_text = ""
-            # text = name
             details = f"Move ID: {code} | Belt: {belt} | Lesson plan: {plan}"
             new_list = ThreeLineListItem(text=name, secondary_text=details, tertiary_text=notes_text)
             self.move_details.moves_popup.add_widget(new_list)
