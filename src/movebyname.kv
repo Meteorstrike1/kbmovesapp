@@ -1,0 +1,58 @@
+#: include main.kv
+
+<MoveByName>:
+    name: 'movebyname'
+
+    move_list: move_list
+    user_search: user_search
+
+    FloatLayout:
+        MDLabel:
+            text: 'Moves by name'
+            font_style: "H5"
+            pos_hint: {"center_x":0.55, "center_y":0.93}
+            size_hint: 0.35, 0.15
+
+        ScrollView:
+            pos_hint: {"x": 0, "top": 0.89}
+            size_hint: 1, 0.58
+
+            MDList:
+                id: move_list
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'movemenu'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.clear_and_reset()
+                root.manager.transition.direction = "right"
+
+        MDTextField:
+            id: user_search
+            font_size: (root.width**2 + root.height**2) / 14**4
+            multiline: False
+            size_hint: 0.35, 0.15
+            pos_hint: {"x":0.33, "y":0.16}
+            hint_text: "Enter move"
+
+        MDRaisedButton:
+            id: search
+            text: 'Search'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"x":0.4, "y":0.05}
+            on_release: root.search_by_name()
+            md_bg_color: app.theme_cls.primary_dark
+
+        MDRectangleFlatButton:
+            text: 'Clear'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint: {"center_x":0.85, "y":0.05}
+            theme_text_color: "Custom"
+            text_color: "#1f6dff"
+            line_color: "#1f6dff"
+            on_release: root.clear_and_reset()

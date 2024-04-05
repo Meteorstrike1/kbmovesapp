@@ -1,10 +1,9 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from movesearch import MoveSearch
 from beltcolour import BeltColour
-from movebuilder import MoveBuilder
 from handdefence import HandDefence
 from legdefence import LegDefence
+from movebyname import MoveByName
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.screenmanager import MDScreenManager
 from kivy.properties import ListProperty
@@ -107,7 +106,7 @@ class KickboxingApp(MDApp):
         self.sm.add_widget(RefWindow(name="reference"))
         self.sm.add_widget(MoveMenu(name="movemenu"))
         self.sm.add_widget(ComboMenu(name="combomenu"))
-        self.sm.add_widget(MoveSearch(name="movesearch"))
+        self.sm.add_widget(MoveByName(name="movebyname"))
         self.sm.add_widget(BeltColour(name="beltcolour"))
         self.sm.add_widget(HandDefence(name="handdefence"))
         self.sm.add_widget(LegDefence(name="legdefence"))
@@ -115,7 +114,6 @@ class KickboxingApp(MDApp):
         self.sm.add_widget(ModuleOne(name="moduleone"))
         self.sm.add_widget(ModuleTwo(name="moduletwo"))
         self.sm.add_widget(PracticeWindow(name="practice"))
-        self.sm.add_widget(MoveBuilder(name="movebuilder"))
         self.sm.current = "home"
 
         self.theme_cls.theme_style = "Dark"
