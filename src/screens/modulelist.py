@@ -99,7 +99,7 @@ class ModuleOneLineListItem(OneLineListItem):
             no_results(req, error="Not found")
             return "no results"
         self.results_list = result
-        self.move_details = MoveDialogContent()
+        self.move_details = MoveDialogContent(md_bg_color="#c20404")
 
         for item in range(len(self.results_list)):
             name = result[item]["name"].capitalize()
