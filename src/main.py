@@ -1,32 +1,20 @@
-from kivy.app import App
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
-from kivy.network.urlrequest import UrlRequest
-from functools import partial
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.widget import Widget
-from movesearch import MoveSearch
 from beltcolour import BeltColour
-from freeform import Freeform
-from data.freeform1 import string
-from movebuilder import MoveBuilder
-from kivymd.uix.button import MDTextButton
-from kivymd.uix.label import MDLabel
-from kivymd.uix.dropdownitem import dropdownitem
+from handdefence import HandDefence
+from legdefence import LegDefence
+from movebyname import MoveByName
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.screenmanager import MDScreenManager
 from kivy.properties import ListProperty
+from screens.modulecombo import ModuleCombo
+from kivy.properties import ObjectProperty
+from data.freeform1 import string
 
 
 class HomeWindow(MDScreen):
     # about = ObjectProperty(None)
     # disclaimer = ObjectProperty(None)
-    # def about_screen(self):
-    #
-    #     return
     pass
 
 
@@ -40,6 +28,35 @@ class RefWindow(MDScreen):
 
 class MoveMenu(MDScreen):
     pass
+
+
+class ComboMenu(MDScreen):
+    pass
+
+
+class ModuleOne(ModuleCombo):
+    pass
+
+
+class ModuleTwo(ModuleCombo):
+    pass
+
+
+class Freeform(MDScreen):
+    """
+    Freeform 1 inherits from MDScreen.
+
+    Methods
+    ----------
+    make_appear:
+        Sets freeform_text.text property to imported freeform 1 string, executes on screen load
+    """
+
+    freeform_text = ObjectProperty(None)
+
+    def make_appear(self):
+        """Sets freeform_text.text property to imported freeform 1 string, executes on screen load."""
+        self.freeform_text.text = string
 
 
 class PracticeWindow(MDScreen):
@@ -75,6 +92,7 @@ class KickboxingApp(MDApp):
     """
 
     object_list = ListProperty()
+    module_list = ListProperty()
 
     def __init__(self, **kwargs):
         """Constructor for App class."""
@@ -87,11 +105,15 @@ class KickboxingApp(MDApp):
         self.sm.add_widget(StartWindow(name="startpage"))
         self.sm.add_widget(RefWindow(name="reference"))
         self.sm.add_widget(MoveMenu(name="movemenu"))
-        self.sm.add_widget(MoveSearch(name="movesearch"))
+        self.sm.add_widget(ComboMenu(name="combomenu"))
+        self.sm.add_widget(MoveByName(name="movebyname"))
         self.sm.add_widget(BeltColour(name="beltcolour"))
+        self.sm.add_widget(HandDefence(name="handdefence"))
+        self.sm.add_widget(LegDefence(name="legdefence"))
         self.sm.add_widget(Freeform(name="freeform"))
+        self.sm.add_widget(ModuleOne(name="moduleone"))
+        self.sm.add_widget(ModuleTwo(name="moduletwo"))
         self.sm.add_widget(PracticeWindow(name="practice"))
-        self.sm.add_widget(MoveBuilder(name="movebuilder"))
         self.sm.current = "home"
 
         self.theme_cls.theme_style = "Dark"
@@ -102,6 +124,10 @@ class KickboxingApp(MDApp):
     def clear_object_list(self):
         """Method to reset the object list to an empty list."""
         self.object_list = []
+
+    def clear_module_list(self):
+        """Method to reset the object list to an empty list."""
+        self.module_list = []
 
 
 if __name__ == "__main__":
