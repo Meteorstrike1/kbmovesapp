@@ -160,8 +160,10 @@ class SparringCombination(db.Model):
         name of move for the attack
     defence: str
         names of moves for the defence
-    moves: str
-        list of moves that appear in the attack/defence
+    attack_id: str
+        id of move for the attack
+    defence_id: str
+        list of ids of moves that appear in the defence
     notes: str
         notes for combination if required/helpful
     """
@@ -172,5 +174,6 @@ class SparringCombination(db.Model):
     belt_colour = db.Column(db.String(15), nullable=False)
     attack = db.Column(db.String(100), nullable=False)
     defence = db.Column(db.String(200), unique=True, nullable=False)
-    moves = db.Column(db.String(50))
+    attack_id = db.Column(db.String(15))
+    defence_id = db.Column(db.String(50))
     notes = db.Column(db.String(200))
