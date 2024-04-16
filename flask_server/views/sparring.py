@@ -52,7 +52,7 @@ class SparComboAttackById(Resource):
 
     @sparring_ns.marshal_with(moves_dto)
     def get(self, id):
-        """Get name of attack that appears in the sparring combination"""
+        """Get attack that appears in the sparring combination"""
         combo_moves = SparringCombination.query.filter(SparringCombination.id == id).first_or_404().attack_id
         if combo_moves is None:
             return abort(404, "No combination moves")
