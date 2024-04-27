@@ -1,9 +1,8 @@
-#:include movesearch.kv
 #:include beltcolour.kv
 #:include handdefence.kv
 #:include legdefence.kv
+#:include movebyname.kv
 #:include screens/freeform.kv
-#:include movebuilder.kv
 #:include screens/module1.kv
 #:include screens/module2.kv
 #:include screens/combomovedialog.kv
@@ -151,7 +150,7 @@
             text: 'By name'
             size_hint: 0.28, 0.22
             font_size: (root.width**2 + root.height**2) / 14**4
-            on_release: app.root.current = 'movesearch'
+            on_release: app.root.current = 'movebyname'
             pos_hint: {"center_x":0.3, "center_y":0.66}
             md_bg_color: get_color_from_hex("#9c0000")
             on_release:
@@ -191,7 +190,7 @@
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            on_release: app.root.current = 'startpage'
+            on_release: app.root.current = 'reference'
             pos_hint: {"x":0.05, "y":0.05}
             on_release:
                 root.manager.transition.direction = "right"
@@ -251,7 +250,7 @@
             text: 'Back'
             size_hint: 0.2, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            on_release: app.root.current = 'startpage'
+            on_release: app.root.current = 'reference'
             pos_hint: {"x":0.05, "y":0.05}
             on_release:
                 root.manager.transition.direction = "right"
@@ -271,7 +270,7 @@
             text: 'Moves'
             size_hint: 0.3, 0.1
             font_size: (root.width**2 + root.height**2) / 14**4
-            on_release: app.root.current = 'movebuilder'
+            on_release: app.root.current = 'beltcolour'
             pos_hint: {"x":0.35, "y":0.7}
             md_bg_color: app.theme_cls.primary_dark
             on_release:

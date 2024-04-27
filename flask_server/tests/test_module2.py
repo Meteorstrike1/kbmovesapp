@@ -59,8 +59,8 @@ class TestModuleTwo(TestAPI):
         self.assertEqual(status_code, 200)
         self.assertEqual(expected, result)
 
-    def test_get_combination_by_id_none_fail(self):
-        """List of moves in combination by id, not found"""
+    def test_get_moves_in_combination_by_id_none_fail(self):
+        """List of moves in combination by id, no move to search"""
         id = 99
         get_response = self.client.get(f"{endpoint}/combo_moves/{id}")
         status_code = get_response.status_code
@@ -72,16 +72,16 @@ class TestModuleTwo(TestAPI):
         self.assertEqual(status_code, 404)
         self.assertEqual(expected, result)
 
-    def test_get_combination_by_missing_id_fail(self):
-        """List of moves in combination by id that doesn't exist in data"""
+    def test_get_moves_in_combination_by_id_not_found(self):
+        """List of moves in combination by id, not found"""
         id = 26
         get_response = self.client.get(f"{endpoint}/combo_moves/{id}")
         status_code = get_response.status_code
 
         self.assertEqual(status_code, 404)
 
-    def test_get_combination_by_id_missing_fail(self):
-        """List of moves in combination by id, not found"""
+    def test_get_combination_by_id_move_missing_fail(self):
+        """List of moves in combination by id that doesn't exist in the Move table data"""
         id = 3
         get_response = self.client.get(f"{endpoint}/combo_moves/{id}")
         status_code = get_response.status_code
@@ -118,7 +118,7 @@ class TestModuleTwo(TestAPI):
         self.assertEqual(expected, result)
 
     def test_get_combination_by_missing_code_fail(self):
-        """List of moves in combination by code that doesn't exist in data"""
+        """List of moves in combination by code that doesn't exist in the Move table data"""
         code = "M2_26"
         get_response = self.client.get(f"{endpoint}/combo_moves/{code}")
         status_code = get_response.status_code
