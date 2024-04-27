@@ -1,11 +1,13 @@
 import unittest
 from unittest import TestCase
 from app import create_app, db
-from models import Moves, ModuleOne, ModuleTwo
+from models import Moves, ModuleOne, ModuleTwo, SparringCombination, ColourCombination
 from config import TestConfig
 from example_data.move_json import move_data
 from example_data.module_1_json import module_1_data
 from example_data.module_2_json import module_2_data
+from example_data.sparring_json import sparring_data
+from example_data.colour_json import colour_data
 
 
 def insert_moves():
@@ -28,6 +30,26 @@ def insert_combo(module, data):
         db.session.commit()
 
 
+def insert_spar_combo():
+    for i in range(len(sparring_data)):
+        new_combo = SparringCombination(id=sparring_data[i]["id"], code=sparring_data[i]["code"],
+                                        belt_colour=sparring_data[i]["belt_colour"], attack=sparring_data[i]["attack"],
+                                        defence=sparring_data[i]["defence"], attack_id=sparring_data[i]["attack_id"],
+                                        defence_id=sparring_data[i]["defence_id"], notes=sparring_data[i]["notes"])
+        db.session.add(new_combo)
+        db.session.commit()
+
+
+def insert_colour_combo():
+    for i in range(len(colour_data)):
+        new_combo = ColourCombination(id=colour_data[i]["id"], name=colour_data[i]["name"], code=colour_data[i]["code"],
+                                      belt_colour=colour_data[i]["belt_colour"],
+                                      lesson_plan=colour_data[i]["lesson_plan"], moves=colour_data[i]["moves"],
+                                      is_grading=colour_data[i]["is_grading"], notes=colour_data[i]["notes"])
+        db.session.add(new_combo)
+        db.session.commit()
+
+
 class TestAPI(TestCase):
     """Base class for testing moves and combinations"""
 
@@ -41,6 +63,8 @@ class TestAPI(TestCase):
             insert_moves()
             insert_combo(ModuleOne, module_1_data)
             insert_combo(ModuleTwo, module_2_data)
+            insert_spar_combo()
+            insert_colour_combo()
 
     def tearDown(self) -> None:
         """Drop tables"""
