@@ -33,6 +33,25 @@ class TestSparring(TestAPI):
 
         self.assertEqual(status_code, 404)
 
+    def test_get_combination_by_belt_success(self):
+        """List of combinations by belt, found"""
+        belt = "red white"
+        get_response = self.client.get(f"{endpoint}/belt/{belt}")
+        status_code = get_response.status_code
+        expected = 2
+        result = len(get_response.json)
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(expected, result)
+
+    def test_get_combination_by_belt_fail(self):
+        """List of combinations by belt, not found"""
+        belt = "testing"
+        get_response = self.client.get(f"{endpoint}/belt/{belt}")
+        status_code = get_response.status_code
+
+        self.assertEqual(status_code, 404)
+
     def test_get_attack_in_combination_by_id_success(self):
         """Get attack move in sparring combination by id, found"""
         id = 1
@@ -88,7 +107,7 @@ class TestSparring(TestAPI):
         self.assertEqual(status_code, 404)
 
     def test_get_defences_in_combination_by_id_missing_fail(self):
-        """Get list of defence moves in sparring combination by id that doesn't exist in data"""
+        """Get list of defence moves in sparring combination by id that doesn't exist in the Move table data"""
         id = 3
         get_response = self.client.get(f"{endpoint}/defence_moves/{id}")
         status_code = get_response.status_code
