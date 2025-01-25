@@ -1,0 +1,20 @@
+#:include main.kv
+
+<ColourCombo>:
+    name: 'colourcombo'
+
+    FloatLayout:
+        MDLabel:
+            text: 'Colour combos will go here'
+            font_style: "H5"
+            pos_hint: {"center_x":0.58, "center_y":0.93}
+            size_hint: 0.35, 0.15
+
+        MDRectangleFlatButton:
+            text: 'Back'
+            size_hint: 0.2, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release: app.root.current = 'combomenu'
+            pos_hint: {"x":0.05, "y":0.05}
+            on_release:
+                root.manager.transition.direction = "right"
