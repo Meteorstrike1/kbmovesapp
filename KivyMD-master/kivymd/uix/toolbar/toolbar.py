@@ -382,7 +382,7 @@ A practical example
     from kivy.uix.behaviors import FocusBehavior
     from kivy.uix.recycleboxlayout import RecycleBoxLayout
     from kivy.uix.recycleview.layout import LayoutSelectionBehavior
-    from kivy.uix.recycleview.views import RecycleDataViewBehavior
+    from kivy.uix.recycleview.routes import RecycleDataViewBehavior
 
     from kivymd.uix.boxlayout import MDBoxLayout
     from kivymd.uix.toolbar import MDActionBottomAppBarButton

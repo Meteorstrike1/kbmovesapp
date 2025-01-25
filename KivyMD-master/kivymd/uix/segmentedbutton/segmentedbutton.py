@@ -10,7 +10,7 @@ Components/SegmentedButton
 
     `Segmented control <https://kivymd.readthedocs.io/en/latest/components/segmentedcontrol/>`_
 
-.. rubric:: Segmented buttons help people select options, switch views,
+.. rubric:: Segmented buttons help people select options, switch routes,
     or sort elements.
 
 .. image:: https://github.com/HeaTTheatR/KivyMD-data/raw/master/gallery/kivymddoc/segmented-button-preview.png

@@ -1027,7 +1027,7 @@ class MDTabsBase:
     """
     This class allow you to create a tab.
     You must create a new class that inherits from MDTabsBase.
-    In this way you have total control over the views of your tabbed panel.
+    In this way you have total control over the routes of your tabbed panel.
     """
 
     icon = StringProperty()

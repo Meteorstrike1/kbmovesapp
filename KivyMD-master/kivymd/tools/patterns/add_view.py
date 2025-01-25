@@ -28,7 +28,7 @@ Example command::
         /Users/macbookair/Projects \\
         NewScreen
 
-You can also add new views with responsive behavior to an existing project::
+You can also add new routes with responsive behavior to an existing project::
 
     kivymd.add_view \\
         MVC \\

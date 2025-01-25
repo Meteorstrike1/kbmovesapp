@@ -102,7 +102,7 @@ Usage responsive
 .. image:: https://github.com/HeaTTheatR/KivyMD-data/raw/master/gallery/kivymddoc/responsive-usage.gif
     :align: center
 
-.. note:: Use common components for platform layouts (mobile, tablet, desktop views).
+.. note:: Use common components for platform layouts (mobile, tablet, desktop routes).
     As shown in the example above, such a common component is the
     `CommonComponentLabel` widget.
 
