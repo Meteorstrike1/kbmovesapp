@@ -130,8 +130,8 @@ created project.
 Create project with responsive view
 -----------------------------------
 
-When creating a project, you can specify which routes should use responsive
-behavior. To do this, specify the name of the view/routes in the
+When creating a project, you can specify which views should use responsive
+behavior. To do this, specify the name of the view/views in the
 `--use_responsive` argument:
 
 Template command::
@@ -145,7 +145,7 @@ Template command::
         --name_screen FirstScreen SecondScreen ThirdScreen \\
         --use_responsive FirstScreen SecondScreen
 
-The `FirstScreen` and `SecondScreen` routes will be created with an responsive
+The `FirstScreen` and `SecondScreen` views will be created with an responsive
 architecture. For more detailed information about using the adaptive view, see
 the `MDResponsiveLayout <https://kivymd.readthedocs.io/en/latest/components/responsivelayout/>`_
 widget.
@@ -203,7 +203,7 @@ Template command::
     - creates application localization files
 
 - use_responsive
-    - the name/names of the routes to be used by the responsive UI
+    - the name/names of the views to be used by the responsive UI
 
 .. warning:: On Windows, hot reloading of Python files may not work.
     But, for example, there is no such problem in macOS. If you fix this,
@@ -226,7 +226,7 @@ from kivymd.tools.argument_parser import ArgumentParserWithHelp
 
 temp_basemodel = '''# The model implements the observer pattern. This means that the class must
 # support adding, removing, and alerting observers. In this case, the model is
-# completely independent of controllers and routes. It is important that all
+# completely independent of controllers and views. It is important that all
 # registered observers implement a specific method that will be called by the
 # model when they are notified (in this case, it is the `model_is_changed`
 # method). For this, observers must be descendants of an abstract class,
@@ -709,7 +709,7 @@ def main():
             if use_localization == "yes":
                 # Create makefile data.
                 create_makefile_data(name, module_name)
-            # Create routes.
+            # Create views.
             create_view(name, module_name, use_responsive, path_to_project)
 
         # Create module `NameProject/View/NameScreen/components/common/__init__.py`.
@@ -1212,7 +1212,7 @@ def create_argument_parser() -> ArgumentParserWithHelp:
         nargs="*",
         type=str,
         default=[],
-        help="the name/names of the routes to be used by the responsive UI.",
+        help="the name/names of the views to be used by the responsive UI.",
     )
     parser.add_argument(
         "--name_database",

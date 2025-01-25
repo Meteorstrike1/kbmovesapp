@@ -1,11 +1,11 @@
 from flask import Flask
 from extensions import db
 from config import DevConfig, TestConfig
-from routes.moves import moves_ns
-from routes.module_one import module_one_ns
-from routes.module_two import module_two_ns
-from routes.sparring import sparring_ns
-from routes.colour import colour_ns
+from views.moves import moves_ns
+from views.module_one import module_one_ns
+from views.module_two import module_two_ns
+from views.sparring import sparring_ns
+from views.colour import colour_ns
 from flask_restx import Api
 
 
