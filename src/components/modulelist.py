@@ -102,11 +102,11 @@ class ModuleOneLineListItem(OneLineListItem):
         self.combo_details = MoveDialogContent(md_bg_color="#c20404")
 
         for item in range(len(self.results_list)):
-            name = result[item]["name"].capitalize()
-            code = result[item]["code"]
-            belt = result[item]["belt_colour"].capitalize()
-            plan = result[item]["lesson_plan"]
-            notes = result[item]["notes"]
+            name = self.results_list[item]["name"].capitalize()
+            code = self.results_list[item]["code"]
+            belt = self.results_list[item]["belt_colour"].capitalize()
+            plan = self.results_list[item]["lesson_plan"]
+            notes = self.results_list[item]["notes"]
 
             if notes is not None:
                 notes_text = f"Notes: {notes}"

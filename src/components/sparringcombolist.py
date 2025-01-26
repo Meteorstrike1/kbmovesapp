@@ -30,11 +30,14 @@ class SparringComboOneLineListItem(OneLineListItem):
         Constructor for combo one item list object
     on_release():
         Creates an MDDialog object using the title and details passed into combination list object, this object has
-        buttons to use the helper functions close_dialog, search_moves_in_combo, prev_item, and next_item
+        buttons to use the helper functions close_dialog, search_attack_move, search_defence_moves, prev_item, and
+        next_item
     close_dialog(instance):
         Close the dialog popup
-    search_moves_in_combo(instance):
-        Makes a request to search for the moves in the combo, on success calls show_moves method, on failure no_results
+    search_attack_move(instance):
+        Makes a request to search for the attack move, on success calls show_moves method, on failure no_results
+    search_attack_move(instance):
+        Makes a request to search for the defence moves, on success calls show_moves method, on failure no_results
     next_item(instance):
         Closes current dialog, uses the MDApp attribute object list (which each of these created objects were saved to
         from the results of move search) to proceed to next item in the list, and use on_release method to call the
@@ -67,8 +70,7 @@ class SparringComboOneLineListItem(OneLineListItem):
         right = MDIconButton(icon="arrow-right-bold-outline", pos_hint={"y": 0.08}, on_release=self.next_item)
         exit = MDIconButton(icon="close", on_release=self.close_dialog, pos_hint={"x": 1, "y": 5.1})
         buttons_list.append(MDIconButton(icon="close", opacity=0, disabled=True, pos_hint={"y": 0.12}))
-        buttons_list.append(MDRaisedButton(text="Attack", md_bg_color="green", pos_hint={"y": 0.12},
-                                               on_release=self.search_attack_move))
+        buttons_list.append(MDRaisedButton(text="Attack", pos_hint={"y": 0.12}, on_release=self.search_attack_move))
         buttons_list.append(MDRaisedButton(text="", opacity=0, disabled=True, pos_hint={"y": 0.12}))
         buttons_list.append(left)
         buttons_list.append(right)
@@ -79,7 +81,6 @@ class SparringComboOneLineListItem(OneLineListItem):
         self.dialog = MDDialog(title=self.title, text=self.details, buttons=buttons_list)
         self.dialog.open()
 
-    ######
     def close_dialog(self, instance):
         """Closes dialog pop up."""
         if self.dialog:
@@ -112,50 +113,21 @@ class SparringComboOneLineListItem(OneLineListItem):
         if len(result) == 0:
             no_results(req, error="Not found")
             return "no results"
-        # Attack brings back single result
+        # Defence
         if type(result) is list:
             self.results_list = result
+            self.combo_details = MoveDialogContent(md_bg_color="#0228e3")
+        # Attack (brings back a single result)
         else:
             self.results_list = [result]
-        self.combo_details = MoveDialogContent(md_bg_color="#0c6e01")
-        # Not sure why it is crashing, works fine single item for move list
+            self.combo_details = MoveDialogContent(md_bg_color="#c20404")
+
         for item in range(len(self.results_list)):
-            name = result[item]["name"].capitalize()
-            code = result[item]["code"]
-            belt = result[item]["belt_colour"].capitalize()
-            plan = result[item]["lesson_plan"]
-            notes = result[item]["notes"]
-
-            if notes is not None:
-                notes_text = f"Notes: {notes}"
-            else:
-                notes_text = ""
-            details = f"Move ID: {code} | Belt: {belt} | Lesson plan: {plan}"
-            new_list = ThreeLineListItem(text=name, secondary_text=details, tertiary_text=notes_text)
-            self.combo_details.moves_popup.add_widget(new_list)
-
-        self.combo_popup = MDDialog()
-        self.combo_popup.add_widget(self.combo_details)
-        self.combo_popup.open()
-
-    def show_moves(self, req, result):
-        """Takes results from url request, adds moves to a custom box widget in a loop, adds to an MDDialog & opens"""
-        if len(result) == 0:
-            no_results(req, error="Not found")
-            return "no results"
-        # Attack brings back single result
-        if type(result) is list:
-            self.results_list = result
-        else:
-            self.results_list = [result]
-        self.combo_details = MoveDialogContent(md_bg_color="#0c6e01")
-        # Not sure why it is crashing, works fine single item for move list
-        for item in range(len(self.results_list)):
-            name = result[item]["name"].capitalize()
-            code = result[item]["code"]
-            belt = result[item]["belt_colour"].capitalize()
-            plan = result[item]["lesson_plan"]
-            notes = result[item]["notes"]
+            name = self.results_list[item]["name"].capitalize()
+            code = self.results_list[item]["code"]
+            belt = self.results_list[item]["belt_colour"].capitalize()
+            plan = self.results_list[item]["lesson_plan"]
+            notes = self.results_list[item]["notes"]
 
             if notes is not None:
                 notes_text = f"Notes: {notes}"

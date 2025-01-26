@@ -1,3 +1,5 @@
+from encodings.punycode import selective_find
+
 from kivy.network.urlrequest import UrlRequest
 from kivy.properties import ObjectProperty
 # from components.movesearch import MoveSearch, no_results
@@ -50,13 +52,13 @@ class SparringCombo(MDScreen):
         self.results_list = result
 
         for item in range(len(self.results_list)):
-            id = result[item]["id"]
-            attack = result[item]["attack"]
-            defence = result[item]["defence"]
-            code = result[item]["code"]
-            belt = result[item]["belt_colour"].capitalize()
-            moves = f"{result[item]["attack_id"]}, {result[item]["defence_id"]})"
-            notes = result[item]["notes"]
+            id = self.results_list[item]["id"]
+            attack = self.results_list[item]["attack"]
+            defence = self.results_list[item]["defence"]
+            code = self.results_list[item]["code"]
+            belt = self.results_list[item]["belt_colour"].capitalize()
+            moves = f"{self.results_list[item]["attack_id"]}, {self.results_list[item]["defence_id"]}"
+            notes = self.results_list[item]["notes"]
 
             if notes is not None:
                 notes_text = f"Notes: {notes}"

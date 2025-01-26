@@ -120,11 +120,11 @@ class MoveOneLineListItem(OneLineListItem):
         self.move_details = MoveDialogContent(md_bg_color="#0c6e01")
 
         for item in range(len(self.results_list)):
-            name = result[item]["name"].capitalize()
-            code = result[item]["code"]
-            belt = result[item]["belt_colour"].capitalize()
-            plan = result[item]["lesson_plan"]
-            notes = result[item]["notes"]
+            name = self.results_list[item]["name"].capitalize()
+            code = self.results_list[item]["code"]
+            belt = self.results_list[item]["belt_colour"].capitalize()
+            plan = self.results_list[item]["lesson_plan"]
+            notes = self.results_list[item]["notes"]
 
             if notes is not None:
                 notes_text = f"Notes: {notes}"
@@ -147,12 +147,12 @@ class MoveOneLineListItem(OneLineListItem):
         self.move_details = MoveDialogContent(md_bg_color="#0228e3")
 
         for item in range(len(self.results_list)):
-            id = result[item]["id"]
-            name = result[item]["name"]
-            code = result[item]["code"][0:2]
-            kick = result[item]["is_kick"]
-            jump = result[item]["is_jump"]
-            notes = result[item]["notes"]
+            id = self.results_list[item]["id"]
+            name = self.results_list[item]["name"]
+            code = self.results_list[item]["code"][0:2]
+            kick = self.results_list[item]["is_kick"]
+            jump = self.results_list[item]["is_jump"]
+            notes = self.results_list[item]["notes"]
 
             if notes is not None:
                 notes_text = f"Notes: {notes}"

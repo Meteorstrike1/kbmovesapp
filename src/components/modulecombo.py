@@ -52,13 +52,13 @@ class ModuleCombo(MDScreen):
         module = self.module_name
 
         for item in range(len(self.results_list)):
-            id = result[item]["id"]
-            name = result[item]["name"]
-            code = result[item]["code"]
-            moves = result[item]["moves"]
-            kick = result[item]["is_kick"]
-            jump = result[item]["is_jump"]
-            notes = result[item]["notes"]
+            id = self.results_list[item]["id"]
+            name = self.results_list[item]["name"]
+            code = self.results_list[item]["code"]
+            moves = self.results_list[item]["moves"]
+            kick = self.results_list[item]["is_kick"]
+            jump = self.results_list[item]["is_jump"]
+            notes = self.results_list[item]["notes"]
 
             if notes is not None:
                 notes_text = f"Notes: {notes}"

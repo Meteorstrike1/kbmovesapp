@@ -52,16 +52,16 @@ class MoveSearch(MDScreen):
         self.results_list = result
 
         for item in range(len(self.results_list)):
-            id = result[item]["id"]
-            name = result[item]["name"].capitalize()
-            code = result[item]["code"]
-            belt = result[item]["belt_colour"].capitalize()
-            plan = result[item]["lesson_plan"]
-            kick = result[item]["is_kick"]
-            jump = result[item]["is_jump"]
-            module = result[item]["module_combo"]
-            related = result[item]["related_moves"]
-            notes = result[item]["notes"]
+            id = self.results_list[item]["id"]
+            name = self.results_list[item]["name"].capitalize()
+            code = self.results_list[item]["code"]
+            belt = self.results_list[item]["belt_colour"].capitalize()
+            plan = self.results_list[item]["lesson_plan"]
+            kick = self.results_list[item]["is_kick"]
+            jump = self.results_list[item]["is_jump"]
+            module = self.results_list[item]["module_combo"]
+            related = self.results_list[item]["related_moves"]
+            notes = self.results_list[item]["notes"]
 
             if module is not None:
                 if id < 88:
