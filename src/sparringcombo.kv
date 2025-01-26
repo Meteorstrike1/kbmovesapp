@@ -2,13 +2,24 @@
 
 <SparringCombo>:
     name: 'sparringcombo'
+    on_enter: root.search_all_combos()
+
+    combo_list: combo_list
 
     FloatLayout:
         MDLabel:
-            text: 'Sparring combos will go here'
-            font_style: "H5"
+            text: 'Sparring combinations'
+            font_size: 30
+            font_size: (root.width**2 + root.height**2) / 14**4
             pos_hint: {"center_x":0.58, "center_y":0.93}
             size_hint: 0.35, 0.15
+
+        ScrollView:
+            pos_hint: {"x": 0, "top": 0.9}
+            size_hint: 1, 0.72
+
+            MDList:
+                id: combo_list
 
         MDRectangleFlatButton:
             text: 'Back'

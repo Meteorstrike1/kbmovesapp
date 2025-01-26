@@ -26,8 +26,6 @@ class ModuleCombo(MDScreen):
         Makes a request to search for all combinations, on success calls update_result method, on failure no_results
     update_result(req, result):
         Takes results from url request, clears widget if already exists, makes new widgets and adds to a list
-    clear_results():
-        Reset the spinner and title text and clears all the list widgets
     """
 
     combo_list = ObjectProperty(None)

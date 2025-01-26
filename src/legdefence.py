@@ -1,5 +1,5 @@
 from kivy.network.urlrequest import UrlRequest
-from screens.movesearch import MoveSearch, no_results
+from components.movesearch import MoveSearch, no_results
 
 
 class LegDefence(MoveSearch):

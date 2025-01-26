@@ -17,18 +17,18 @@ class ModuleOneLineListItem(OneLineListItem):
     Attributes
     ----------
     self.dialog: None
-        used with on_release method to create an MDDialog object (pop up for the move details)
+        used with on_release method to create an MDDialog object (pop up for the combination details)
     self.details: str
-        string of details about the move, passed in from the results of search for moves when this object is created
+        string of details about the combination, passed in from the search for combinations when this object is created
     self.title: str
-        title of the move, passed in from the results of search for moves when this object is created
+        title of the combination, passed in from the results of search for combinations when this object is created
     self.position: int
         position of the object in the list of results, to be used when navigating through dialogs
 
     Methods
     -------
     __init__(details, title, position):
-        Constructor for move one item list object
+        Constructor for combo one item list object
     on_release():
         Creates an MDDialog object using the title and details passed into combination list object, this object has
         buttons to use the helper functions close_dialog, search_moves_in_combo, prev_item, and next_item
@@ -48,8 +48,8 @@ class ModuleOneLineListItem(OneLineListItem):
         Takes results from url request, adds moves to a custom box widget in a loop, adds an MDDialog & opens
     """
 
-    move_details = ObjectProperty(None)
-    move_popup = ObjectProperty(None)
+    combo_details = ObjectProperty(None)
+    combo_popup = ObjectProperty(None)
 
     def __init__(self, details, title, position, module, id, *args, **kwargs):
         """Constructs all necessary attributes for the combination list object."""
@@ -99,7 +99,7 @@ class ModuleOneLineListItem(OneLineListItem):
             no_results(req, error="Not found")
             return "no results"
         self.results_list = result
-        self.move_details = MoveDialogContent(md_bg_color="#c20404")
+        self.combo_details = MoveDialogContent(md_bg_color="#c20404")
 
         for item in range(len(self.results_list)):
             name = result[item]["name"].capitalize()
@@ -114,11 +114,11 @@ class ModuleOneLineListItem(OneLineListItem):
                 notes_text = ""
             details = f"Move ID: {code} | Belt: {belt} | Lesson plan: {plan}"
             new_list = ThreeLineListItem(text=name, secondary_text=details, tertiary_text=notes_text)
-            self.move_details.moves_popup.add_widget(new_list)
+            self.combo_details.moves_popup.add_widget(new_list)
 
-        self.move_popup = MDDialog()
-        self.move_popup.add_widget(self.move_details)
-        self.move_popup.open()
+        self.combo_popup = MDDialog()
+        self.combo_popup.add_widget(self.combo_details)
+        self.combo_popup.open()
 
 
 def no_results(req, error):

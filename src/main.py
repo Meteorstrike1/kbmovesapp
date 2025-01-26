@@ -9,7 +9,7 @@ from colourcombo import ColourCombo
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.screenmanager import MDScreenManager
 from kivy.properties import ListProperty
-from screens.modulecombo import ModuleCombo
+from components.modulecombo import ModuleCombo
 from kivy.properties import ObjectProperty
 from data.freeform1 import string
 
@@ -95,6 +95,8 @@ class KickboxingApp(MDApp):
 
     object_list = ListProperty()
     module_list = ListProperty()
+    spar_combo_list = ListProperty()
+    colour_combo_list = ListProperty()
 
     def __init__(self, **kwargs):
         """Constructor for App class."""
@@ -132,6 +134,14 @@ class KickboxingApp(MDApp):
     def clear_module_list(self):
         """Method to reset the object list to an empty list."""
         self.module_list = []
+
+    def clear_spar_combo_list(self):
+        """Method to reset the object list to an empty list."""
+        self.spar_combo_list = []
+
+    def clear_colour_combo_list(self):
+        """Method to reset the object list to an empty list."""
+        self.colour_combo_list = []
 
 
 if __name__ == "__main__":

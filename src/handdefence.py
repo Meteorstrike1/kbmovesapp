@@ -1,6 +1,6 @@
 from kivy.network.urlrequest import UrlRequest
 from kivy.properties import ObjectProperty
-from screens.movesearch import MoveSearch, no_results
+from components.movesearch import MoveSearch, no_results
 
 
 class HandDefence(MoveSearch):
